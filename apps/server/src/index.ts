@@ -7,7 +7,10 @@ import { appRouter } from "./routes";
 import { createContext } from "./utils";
 import { createServer, Server } from "http";
 import { Server as SocketServer } from "socket.io";
+<<<<<<< HEAD
 import cors from 'cors'
+=======
+>>>>>>> 11f8fae (✨ feat(socket): basic webrtc)
 
 const app: Express = express();
 const httpServer: Server = createServer(app);
@@ -35,11 +38,19 @@ app.use(
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+<<<<<<< HEAD
   socket.on("sdp", (sdp) => {
     socket.broadcast.emit("sdp", sdp);
   })
 
   socket.on("ice", (ice) => {
+=======
+  socket.on("sdp", (sdp: RTCSessionDescriptionInit) => {
+    socket.broadcast.emit("sdp", sdp);
+  })
+
+  socket.on("ice", (ice: RTCIceCandidate) => {
+>>>>>>> 11f8fae (✨ feat(socket): basic webrtc)
     socket.broadcast.emit("ice", ice);
   })
 });
