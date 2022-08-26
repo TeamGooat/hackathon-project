@@ -1,8 +1,8 @@
 function HomePage() {
   return (
     <>
-      <p>This is the home page</p>
-      <h1 className='text-4xl font-bold underline'>Hello world!</h1>
+      <h1 className='text-4xl'>responsIO</h1>
+      <br />
       <button className='btn'>Hello daisyUI</button>
     </>
   );
