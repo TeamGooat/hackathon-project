@@ -2,7 +2,7 @@ function HomePage() {
   return (
     <>
       <p>This is the home page</p>
-      <h1>Hello world!</h1>
+      <h1 className='text-4xl font-bold underline'>Hello world!</h1>
       <button className='btn'>Hello daisyUI</button>
     </>
   );
