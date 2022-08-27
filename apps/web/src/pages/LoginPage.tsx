@@ -4,6 +4,10 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useNavigate } from "react-router-dom";
 
+/**
+ * component renders the login UI and features
+ * @returns JSX element
+ */
 function LoginPage() {
     const navigate = useNavigate();
     return (
@@ -37,7 +41,7 @@ function LoginPage() {
                 <input
                     type="password"
                     placeholder="Password"
-                    className="input input-bordered w-full max-w-xs hover:ring-gradient-to-r from-cyan-500 to-blue-500"
+                    className="input input-bordered w-full max-w-xs focus:border-white"
                 />
                 <div className="card-actions justify-center pt-10">
                     <button className="btn btn-primary px-10 hover:bg-[#C2E1EB] hover:text-[#000062] text-white">
