@@ -2,12 +2,69 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
+}
+
+model User {
+  id                 Int          @id @default(autoincrement())
+  first_name         String
+  last_name          String
+  username           String
+  email              String
+  password           String
+  verified           Boolean
+  anonymous          Boolean
+  ratings            Rating[]
+  questions_asked    Questions[]  @relation("QuestionFrom")
+  questions_answered Questions[]  @relation("AnsweredBy")
+  tokens             UserTokens[]
+  otp                UserOTP?
+  created_at         DateTime
+  updated_at         DateTime
+}
+
+model Rating {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  rating     Int
+  created_at DateTime
+  updated_at DateTime
+}
+
+model Questions {
+  id             Int      @id @default(autoincrement())
+  user           User     @relation("QuestionFrom", fields: [user_id], references: [id])
+  user_id        Int
+  question       String
+  answer         String
+  answered_by    User     @relation("AnsweredBy", fields: [answered_by_id], references: [id])
+  answered_by_id Int
+  created_at     DateTime
+  updated_at     DateTime
+}
+
+model UserTokens {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  token      String
+  created_at DateTime
+  updated_at DateTime
+}
+
+model UserOTP {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int      @unique
+  otp        String
+  created_at DateTime
+  updated_at DateTime
 }

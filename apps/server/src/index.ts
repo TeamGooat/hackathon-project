@@ -7,6 +7,7 @@ import { appRouter } from "./routes";
 import { createContext } from "./utils";
 import { createServer, Server } from "http";
 import { Server as SocketServer } from "socket.io";
+import cors from 'cors'
 
 const app: Express = express();
 const httpServer: Server = createServer(app);
@@ -17,6 +18,11 @@ const port = 4000;
 app.get("/", (req, res) => {
   res.send("Hello from server");
 });
+
+app.use(cors({
+  credentials: true,
+  origin: '*'
+}))
 
 app.use(
   '/trpc',
@@ -29,11 +35,11 @@ app.use(
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on("sdp", (sdp: RTCSessionDescriptionInit) => {
+  socket.on("sdp", (sdp) => {
     socket.broadcast.emit("sdp", sdp);
   })
 
-  socket.on("ice", (ice: RTCIceCandidate) => {
+  socket.on("ice", (ice) => {
     socket.broadcast.emit("ice", ice);
   })
 });
