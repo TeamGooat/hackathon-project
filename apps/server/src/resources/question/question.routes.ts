@@ -18,4 +18,14 @@ export const QuestionRouter = createRouter()
       return questionService.newQuestion(id, input.question);
     }
   })
+  .mutation("answer", {
+    input: z.object({
+      questionId: z.string(),
+      answer: z.string(),
+    }),
+    resolve: async ({ input, ctx }) => {
+      const id: string = ctx.res.getHeader("user-id") as string;
+      return questionService.answerQuestion(id, input.answer, input.questionId);
+    }
+  })
   ;

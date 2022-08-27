@@ -46,7 +46,7 @@ model Questions {
   user_id        Int
   question       String
   answer         Answers?
-  answer_id      Int @unique
+  answer_id      Int? @unique
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }
