@@ -11,7 +11,11 @@ import cors from 'cors'
 
 const app: Express = express();
 const httpServer: Server = createServer(app);
-const io: SocketServer = new SocketServer(httpServer);
+const io: SocketServer = new SocketServer(httpServer, {
+  cors: {
+    origin: "*"
+  }
+});
 
 const port = 4000;
 
@@ -21,7 +25,7 @@ app.get("/", (req, res) => {
 
 app.use(cors({
   credentials: true,
-  origin: '*'
+  origin: "*"
 }))
 
 app.use(
