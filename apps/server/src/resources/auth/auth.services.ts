@@ -2,13 +2,8 @@ import { createToken } from "../../utils"
 import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
 import { verifyToken } from "../../utils/jwt"
-import { allQuestions, duplicateUsers } from "./auth.model"
-
-// const user = {
-//   name: 'John Doe',
-//   email: 'johndoe@mail.com',
-//   password: '123456',
-// }
+import { User } from "../../utils/types/user"
+import { createUser, createUserOTP, setVerifiedUser, duplicateUsers } from "./auth.model"
 
 const existingUsers : {
   [key: string]: User
@@ -17,17 +12,6 @@ const existingUsers : {
 const verificationTokens: {
   [key: string]: string
 } = {}
-
-interface User {
-  username: string
-  password: string
-  fName?: string,
-  lName?: string, 
-  email?: string | undefined, 
-  rePassword?: string, 
-  anonymous?: boolean,
-  isVerified?: boolean
-}
 
 interface JWTToken {
   refreshToken: string,
@@ -95,23 +79,8 @@ export const register = async ( newUser : (User)) => {
 
     // check if username and email is unique
     // if in the database, there is ANY users with same email 
-    /*
-    if (Object.entries(existingUsers).filter(([k,v]) => {
-      return v.email === newUser.email! || v.username === newUser.username
-    }).length > 0) {
-      return {
-        success: false,
-        error: "Details are not unique"
-      }
-    }
-    */
-    let checkUnique =  duplicateUsers(newUser.username, newUser.email)
-    if ((await checkUnique).length) {
-      return {
-        success: true
-      }
-    }
-    else {
+    let checkUnique =  duplicateUsers(newUser.username, newUser.email!)
+    if ((await checkUnique).length > 0) {
       return {
         success: false,
         error: "Details are not unique"
@@ -122,7 +91,7 @@ export const register = async ( newUser : (User)) => {
     const hash = createHash('sha256');
     hash.update(newUser.password);
     newUser.password = hash.digest('hex')
-    Object.assign(existingUsers, {[newUser.email!]: newUser})
+    let user = await createUser(newUser)
 
     // create verification token
     // send via email
@@ -130,23 +99,9 @@ export const register = async ( newUser : (User)) => {
 
     sendEmail("Verify your email", `Hi! Your verification code is: ${verificationCode}`, newUser.email!)
 
-    Object.assign(verificationTokens, {[verificationCode]: newUser.email})
+    createUserOTP(verificationCode, user.id)
 }
 
-
-export const verifyUser = (verificationCode: string, email: string) => {
-  let linkedEmail = verificationTokens[verificationCode]
-  if (linkedEmail === email) {
-    existingUsers[linkedEmail].isVerified = true
-    delete existingUsers[linkedEmail]
-    return {
-      success: true,
-      message: "User has been verified"
-    }
-  } else {
-    return {
-      success: false,
-      message: "Verification token is invalid."
-    }
-  }
+export const verifyUser = (verificationCode: string) => {
+  return setVerifiedUser(verificationCode)
 }
