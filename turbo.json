@@ -16,6 +16,7 @@
     ".env",
     "$EMAIL",
     "$EMAIL_PASSWORD",
-    "$JWT_SECRET"
+    "$JWT_SECRET",
+    "$REDIS_URL"
   ]
 }
