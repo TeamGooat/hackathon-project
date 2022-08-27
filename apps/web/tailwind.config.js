@@ -3,12 +3,12 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class',
   theme: {
-    colors: {
-      pinky: "#E153D3",
-    },
     extend: {
       fontFamily: {
         sans: ["Almarai", "sans-serif"],
+      },
+      colors: {
+        pinky: "#E153D3",
       },
     },
   },

@@ -65,6 +65,7 @@ function LoginPage() {
               className="btn btn-success px-10 hover:bg-[#C2E1EB] text-[#000062] text-white"
               onClick={() => {
                 setIsValid(!isValid);
+                navigate("/forum");
               }}
             >
               Log In

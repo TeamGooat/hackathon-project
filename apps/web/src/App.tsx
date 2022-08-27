@@ -9,19 +9,21 @@ import { trpc } from "./utils/trpc";
 import { useState } from "react";
 import { getFetch } from "@trpc/client";
 import { CollabStateProvider } from "./components/Collab/collabState";
+import AddQuestionPage from "./pages/AddQuestionPage";
 
 function AppContent() {
   return (
     <CollabStateProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forum" element={<ForumPage />} />
-        <Route path="/collab" element={<CollabPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/forum' element={<ForumPage />} />
+          <Route path='/question' element={<AddQuestionPage />} />
+          <Route path='/collab' element={<CollabPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
     </CollabStateProvider>
   );
 }
