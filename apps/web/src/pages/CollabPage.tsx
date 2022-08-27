@@ -5,15 +5,15 @@ import Header from "../components/Header";
 import { io } from "socket.io-client";
 /* Icons */
 import {
-  faCalculator,
   faCode,
+  faQuestion,
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import CodePad from "../components/Collab/CodePad";
 import MathPad from "../components/Collab/MathPad";
 import { CollabState, ICollabState } from "../components/Collab/collabState";
-
+import QuestionPad from "../components/Collab/QuestionPad";
 
 const ws = io("http://localhost:4000");
 const config: RTCConfiguration = {
@@ -36,8 +36,9 @@ const config: RTCConfiguration = {
 };
 var pc = new RTCPeerConnection(config);
 
-function SideBar() {
+function SideBar(props: { toggleQuestion: () => void }) {
   const { setMode } = useContext<ICollabState>(CollabState);
+  const { toggleQuestion } = props;
 
   let local_vid: HTMLVideoElement;
   let remote_vid: HTMLVideoElement;
@@ -112,50 +113,54 @@ function SideBar() {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center rounded-2xl ">
-      <UserVideo local id="local" src="https://placeimg.com/192/192/people" />
-      <UserVideo id="remote" src="https://placeimg.com/192/192/people" />
-      <h3 className="text-2xl">Modes</h3>
+    <div className='flex flex-col gap-4 items-center rounded-2xl '>
+      <UserVideo local id='local' src='https://placeimg.com/192/192/people' />
+      <UserVideo id='remote' src='https://placeimg.com/192/192/people' />
+      <h3 className='text-2xl'>Modes</h3>
       <button onClick={makeOffer}>Call</button>
-      <ModeButton name="Code" icon={faCode} onClick={() => setMode("Code")} />
+      <ModeButton name='Code' icon={faCode} onClick={() => setMode("Code")} />
       <ModeButton
-        name="Math"
+        name='Math'
         icon={faSquareRootVariable}
         onClick={() => setMode("Math")}
       />
       <ModeButton
-        name="Calculator"
-        icon={faCalculator}
-        onClick={() => setMode("Calculator")}
+        name='Question'
+        icon={faQuestion}
+        onClick={() => toggleQuestion()}
       />
     </div>
   );
 }
 
 function CollabPage() {
-  const {mode} = useContext(CollabState);
+  const { mode } = useContext(CollabState);
+  const [showQuestion, setShowQuestion] = useState(false);
+
+  function toggleQuestion() {
+    setShowQuestion(!showQuestion);
+  }
 
   function renderMode() {
     switch (mode) {
       case "Code":
-        return <CodePad/>;
+        return <CodePad />;
       case "Math":
         return <MathPad />;
-      default:
-        return <CodePad/>;
     }
   }
 
   return (
-      <div className='flex flex-col h-screen'>
-        <Header />
-        <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 mb-10 overflow-hidden h-full'>
-          <div className='flex rounded-2xl overflow-hidden mb-10 h-full'>
-            {renderMode()}
-          </div>
-          <SideBar />
+    <div className='flex flex-col h-screen'>
+      <Header />
+      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 mb-10 overflow-hidden h-full'>
+        <div className='flex rounded-2xl relative overflow-hidden mb-10 h-full'>
+          {renderMode()}
+          {showQuestion && <QuestionPad />}
         </div>
+        <SideBar toggleQuestion={toggleQuestion} />
       </div>
+    </div>
   );
 }
 

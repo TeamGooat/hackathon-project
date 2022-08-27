@@ -22,6 +22,7 @@ const CodePad = () => {
   
   return (
     <Editor
+      className='z-0 relative'
       theme='vs-dark'
       height='100%'
       width='100%'

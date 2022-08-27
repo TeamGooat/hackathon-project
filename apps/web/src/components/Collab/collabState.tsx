@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-export type Mode = "Code" | "Math" | "Calculator";
+export type Mode = "Code" | "Math";
 
 export const CollabState = React.createContext<ICollabState>({
   mode: "Code",

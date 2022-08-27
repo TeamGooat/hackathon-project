@@ -4,7 +4,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 interface ModeButtonProps {
   name: string;
   icon: IconProp;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement> | (() => void);
 }
 
 function ModeButton(props: ModeButtonProps) {
