@@ -30,25 +30,23 @@ function CollabPage() {
   }
 
   return (
-    <>
+    <div className='h-screen'>
       <Header />
-      <div className='px-10'>
-        <div className='grid grid-cols-[1fr,10rem] gap-4'>
-          <section className='rounded-2xl overflow-hidden'>
-            <Editor
-              theme='vs-dark'
-              height='93vh'
-              width='100%'
-              defaultLanguage='javascript'
-              defaultValue='// Hello, this is the code editor'
-              onChange={handleEditorChange}
-            />
-          </section>
+      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 h-full'>
+        <section className='rounded-2xl overflow-hidden mb-10'>
+          <Editor
+            theme='vs-dark'
+            height='95%'
+            width='100%'
+            defaultLanguage='javascript'
+            defaultValue='// Hello, this is the code editor'
+            onChange={handleEditorChange}
+          />
+        </section>
 
-          <SideBar />
-        </div>
+        <SideBar />
       </div>
-    </>
+    </div>
   );
 }
 
