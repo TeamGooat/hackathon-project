@@ -21,7 +21,8 @@ export const AuthRouter = createRouter()
           first_name: res.first_name,
           last_name: res.last_name,
         })
-        ctx.res.setHeader("Set-Cookie", `access_token=${accessToken};HttpOnly;Path=/; refresh_token=${refreshToken};HttpOnly;Path=/;`);
+        ctx.res.cookie("access_token", accessToken, { httpOnly: true, path: "/" });
+        ctx.res.cookie("refresh_token", refreshToken, { httpOnly: true, path: "/" });
         return {
           success: true,
           user_id: res.user_id,
