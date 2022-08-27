@@ -3,6 +3,7 @@ import CollabPage from "./pages/CollabPage";
 import ForumPage from "./pages/ForumPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import RegisterPage from "./pages/RegisterPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { trpc } from "./utils/trpc";
@@ -34,6 +35,7 @@ function App() {
             <Route path="/forum" element={<ForumPage />} />
             <Route path="/collab" element={<CollabPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/reset-password" element={<ForgetPasswordPage />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

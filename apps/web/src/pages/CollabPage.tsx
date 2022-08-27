@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ModeButton from "../components/Collab/SideBarModeButton";
 import UserVideo from "../components/Collab/SideBarUserVideo";
+import TextBar from "../components/Collab/TextBar";
 import Header from "../components/Header";
 import { io } from "socket.io-client";
 /* Icons */
@@ -154,9 +155,12 @@ function CollabPage() {
   return (
     <div className='flex flex-col h-screen'>
       <Header />
-      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 mb-10 overflow-hidden h-full'>
-        <div className='flex rounded-2xl overflow-hidden mb-10 h-full'>
-          {renderMode(mode)}
+      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 mb-5 overflow-hidden h-full'>
+        <div className="flex flex-col">
+          <div className='grow rounded-t-2xl overflow-hidden'>
+            {renderMode(mode)}
+          </div>
+          <TextBar />
         </div>
         <SideBar setMode={setMode} />
       </div>

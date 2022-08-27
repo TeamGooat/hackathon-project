@@ -5,6 +5,9 @@ module.exports = {
   theme: {
     colors: {
       pinky: "#E153D3",
+      redy: "#FB3B1E",
+      whitey: "#FFFFFF",
+      blacky: "#000000"
     },
     extend: {
       fontFamily: {
