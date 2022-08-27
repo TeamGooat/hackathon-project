@@ -10,7 +10,7 @@ export const AuthRouter = createRouter()
     }),
     resolve: async ({ ctx, input }) => {
       const val = await signIn(input)
-      val.success && ctx.res.setHeader("Set-Cookie", `access_token=${val.access_token};httpOnly; refresh_token=${val.refresh_token};httpOnly;`)
+      val.success && ctx.res.setHeader("Set-Cookie", `access_token=${val.access_token};httpOnly;`)  && ctx.res.setHeader("Set-Cookie", `refresh_token=${val.refresh_token};httpOnly;`)
       return {
         success: val.success,
       };
