@@ -11,7 +11,7 @@ import { trpc } from "../utils/trpc";
  * component renders the login UI and features
  * @returns JSX element
  */
-function LoginPage() {
+function OtpPage() {
   const navigate = useNavigate();
   const [error, setError] = useState<{
     hasError: boolean,
@@ -19,21 +19,20 @@ function LoginPage() {
   }>({
     hasError: false,
   });
-  const login = trpc.useMutation("auth.login")
+  const verify = trpc.useMutation("auth.verify")
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
-    const r = await login.mutateAsync({
-      username: e.target.username.value,
-      password: e.target.password.value,
+    const r = await verify.mutateAsync({
+      otp: e.target.otp.value,
     })
 
     if (r.success) {
-      navigate("/forum");
+      navigate("/login");
     } else {
       setError({
         hasError: true,
-        message: r.error,
+        message: "Invalid OTP",
       });
     }
 
@@ -49,36 +48,18 @@ function LoginPage() {
           className="card w-96 bg-base-100 shadow-xl p-10 bg-gradient-to-b from-[#2F2FF7] text-white"
         >
           <h3 id="login-header" className="label text-2xl pb-4 font-bold">
-            Log In
-            <FontAwesomeIcon
-              className="hover:text-[#000062] cursor-pointer"
-              onClick={() => {
-                navigate("/");
-              }}
-              icon={faXmark}
-            />
+            Verify Account
           </h3>
-          {error.hasError ? <p className="text-sm text-red-400">{error.message === "Unverified account" ? (<span>Unverified account, verify <a className="underline underline-offset-2" href="/verify">here</a></span>) : error.message}</p> : ""}
+          {error.hasError ? <p className="text-sm text-red-400">{error.message}</p> : ""}
 
-          <label className="label ">
-            <span className="label-text text-white">
-              Enter Username or Email
-            </span>
+          <label className="label pt-10 ">
+            <span className="label-text text-white ">Enter OTP</span>
           </label>
           <input
             type="text"
-            placeholder="Username"
-            id="username"
-            className="input input-bordered w-full max-w-xs focus:border-white"
-            required
-          />
-          <label className="label pt-10 ">
-            <span className="label-text text-white ">Enter Password</span>
-          </label>
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
+            placeholder="One-time password"
+            id="otp"
+            maxLength={6}
             className="input input-bordered w-full max-w-xs focus:border-white"
             required
           />
@@ -87,7 +68,7 @@ function LoginPage() {
               className="btn btn-success px-10 hover:bg-[#C2E1EB] text-[#000062]"
               type="submit"
             >
-              Log In
+              Verify
             </button>
           </div>
         </form>
@@ -96,4 +77,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default OtpPage;
