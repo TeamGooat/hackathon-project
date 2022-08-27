@@ -10,6 +10,10 @@ export class QuestionService {
     return await this.store.getQuestions();
   }
 
+  async getAnswered() {
+    return await this.store.getAnswered();
+  }
+
   async newQuestion(userId: string, question: string) {
     return await this.store.newQuestion(userId, question);
   }

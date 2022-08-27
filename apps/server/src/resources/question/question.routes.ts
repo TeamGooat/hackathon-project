@@ -9,6 +9,11 @@ export const QuestionRouter = createRouter()
       return await questionService.getQuestions();
     }
   })
+  .query("answered", {
+    resolve: async () => {
+      return await questionService.getAnswered();
+    }
+  })
   .mutation("new", {
     input: z.object({
       question: z.string(),
