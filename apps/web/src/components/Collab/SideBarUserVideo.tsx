@@ -1,8 +1,6 @@
-import { LegacyRef } from "react";
-
 interface UserVideoProps {
   src: string;
-  id: string
+  id: string;
   local?: boolean;
 }
 
@@ -12,7 +10,16 @@ function UserVideo(props: UserVideoProps) {
   return (
     <div className='avatar'>
       <div className='w-full aspect-square rounded-xl'>
-        <video autoPlay playsInline muted={local} id={id} className={`w-full h-full object-cover ${local ? "scale-x-[-1]" : "scale-100"}`} poster={src} />
+        <video
+          autoPlay
+          playsInline
+          muted={local}
+          id={id}
+          className={`w-full h-full object-cover ${
+            local ? "scale-x-[-1]" : "scale-100"
+          }`}
+          poster={src}
+        />
       </div>
     </div>
   );
