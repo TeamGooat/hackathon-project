@@ -8,7 +8,7 @@ const CodePad = (props: CodePadProps) => {
   return (
     <Editor
       theme='vs-dark'
-      height='95%'
+      height='100%'
       width='100%'
       defaultLanguage='javascript'
       defaultValue='// Hello, this is the code editor'
