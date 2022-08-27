@@ -131,3 +131,13 @@ export const createUserToken = async (token: string, userID: number) => {
         data: tokenData
     })
 }
+
+export const getUserFromToken = async (token: string) => {
+    const user = await prisma.userTokens.findFirst({
+        where: {
+            token: token
+        }
+    })
+
+    return user
+}

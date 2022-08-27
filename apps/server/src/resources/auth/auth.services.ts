@@ -3,21 +3,7 @@ import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
 import { verifyToken } from "../../utils/jwt"
 import { User } from "../../utils/types/user"
-import { createUser, createUserOTP, setVerifiedUser, signInUser, createUserToken, duplicateUsers } from "./auth.model"
-
-// const user = {
-//   name: 'John Doe',
-//   email: 'johndoe@mail.com',
-//   password: '123456',
-// }
-
-const existingUsers : {
-  [key: string]: User
-} = {}
-
-const verificationTokens: {
-  [key: string]: string
-} = {}
+import { createUser, createUserOTP, setVerifiedUser, signInUser, createUserToken, duplicateUsers, getUserFromToken } from "./auth.model"
 
 interface JWTToken {
   refreshToken: string,
@@ -78,7 +64,8 @@ export const validateTokens = async ({ refreshToken, accessToken } : JWTToken) =
       refresh_token: createToken((res as {success: boolean, payload: string | any}).payload, "30d"),
     }
 
-    //createUserToken(tokenData.refresh_token, res.payload.) // add user id here some how
+    let user = await getUserFromToken(tokenData.refresh_token)
+    createUserToken(tokenData.refresh_token, user?.id!)
 
     return tokenData
 
