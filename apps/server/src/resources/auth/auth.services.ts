@@ -5,7 +5,7 @@ import { verifyToken } from "../../utils/jwt"
 import { User } from "../../utils/types/user"
 import { createUser, createUserOTP, setVerifiedUser, signInUser, createUserToken, duplicateUsers, getUserFromToken } from "./auth.model"
 
-interface JWTToken {
+export interface JWTToken {
   refreshToken: string,
   accessToken: string
 }
@@ -16,7 +16,7 @@ interface JWTToken {
  * @param password password of user signing in 
  * @returns access and refresh token if valid, otherwise error
  */
-export const signIn = async ({ username, password }: User) => {
+export const signIn = async ({ username, password }: User): Promise<{access_token?: string, refresh_token?: string, error?: string, success:boolean}> => {
   // create hashed password
   let hash = createHash('sha256');
   hash.update(password);

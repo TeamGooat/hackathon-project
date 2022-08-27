@@ -8,8 +8,12 @@ export const AuthRouter = createRouter()
       username: z.string(),
       password: z.string(),
     }),
-    resolve: async ({ input }) => {
-      return signIn(input);
+    resolve: async ({ ctx, input }) => {
+      const val = await signIn(input)
+      val.success && ctx.res.setHeader("Set-Cookie", `access_token=${val.access_token};httpOnly; refresh_token=${val.refresh_token};httpOnly;`)
+      return {
+        success: val.success,
+      };
     }
   })
   .mutation("register", {
