@@ -24,7 +24,7 @@ model User {
   ratings            Rating[]
   questions_asked    Questions[]  @relation("QuestionFrom")
   questions_answered Questions[]  @relation("AnsweredBy")
-  token              UserToken[] 
+  token              UserTokens[] 
   otp                UserOTP?
   created_at         DateTime     @default(now())
   updated_at         DateTime     @updatedAt
@@ -51,7 +51,7 @@ model Questions {
   updated_at     DateTime
 }
 
-model UserToken {
+model UserTokens {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [user_id], references: [id])
   user_id    Int

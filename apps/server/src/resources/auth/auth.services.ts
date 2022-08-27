@@ -3,7 +3,21 @@ import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
 import { verifyToken } from "../../utils/jwt"
 import { User } from "../../utils/types/user"
-import { createUser, createUserOTP, createUserToken, setVerifiedUser, signInUser } from "./auth.model"
+import { createUser, createUserOTP, setVerifiedUser, signInUser, createUserToken, duplicateUsers } from "./auth.model"
+
+// const user = {
+//   name: 'John Doe',
+//   email: 'johndoe@mail.com',
+//   password: '123456',
+// }
+
+const existingUsers : {
+  [key: string]: User
+} = {}
+
+const verificationTokens: {
+  [key: string]: string
+} = {}
 
 interface JWTToken {
   refreshToken: string,
@@ -86,14 +100,14 @@ export const register = async ( newUser : (User)) => {
     }
 
     // check if username and email is unique
-    // if (Object.entries(existingUsers).filter(([k,v]) => {
-    //   return v.email === newUser.email! || v.username === newUser.username
-    // }).length > 0) {
-    //   return {
-    //     success: false,
-    //     error: "Details are not unique"
-    //   }
-    // }
+    // if in the database, there is ANY users with same email 
+    let checkUnique =  duplicateUsers(newUser.username, newUser.email!)
+    if ((await checkUnique).length > 0) {
+      return {
+        success: false,
+        error: "Details are not unique"
+      }
+    }
 
     // if all a-ok then hash + salt password and store
     const hash = createHash('sha256');
@@ -106,8 +120,9 @@ export const register = async ( newUser : (User)) => {
     let verificationCode = Math.random().toString(36).substring(2,8)
 
     sendEmail("Verify your email", `Hi! Your verification code is: ${verificationCode}`, newUser.email!)
+
     createUserOTP(verificationCode, user.id)
-  }
+}
 
 export const verifyUser = (verificationCode: string) => {
   return setVerifiedUser(verificationCode)

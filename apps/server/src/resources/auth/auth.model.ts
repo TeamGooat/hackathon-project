@@ -4,8 +4,23 @@ import { createHash } from "node:crypto"
 
 const prisma = new PrismaClient()
 
-// create a that looks into users table and checks if user with same email or username exists
-// return true if there is , false otherwise
+// create a function that returns users with certina un OR email
+export const duplicateUsers = async (usernameEntered: string, emailEntered: string) => {
+    let res = await prisma.user.findMany({
+    where: {
+        OR: [
+            {email: {
+                equals: emailEntered,
+            }
+        },
+        {username: {
+            equals: usernameEntered
+        }},
+        ]
+    }
+})
+return res
+}
 
 export const createUser = async ({fName, lName, username, email, password, anonymous}: User) => {
     let userData: Prisma.UserCreateInput = {
@@ -112,7 +127,7 @@ export const createUserToken = async (token: string, userID: number) => {
         token: token
     }
 
-    await prisma.userToken.create({
+    await prisma.userTokens.create({
         data: tokenData
     })
 }
