@@ -10,8 +10,9 @@ import {
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import CodePad from "./components/CodePad";
-import MathPad from "./components/MathPad";
+import CodePad from "../components/CodePad";
+import MathPad from "../components/MathPad";
+
 type Mode = "Code" | "Math" | "Calculator";
 
 const ws = io("http://localhost:4000");
@@ -111,18 +112,19 @@ function SideBar(props: { setMode: (mode: Mode) => void }) {
   };
 
   return (
-    <div className='flex flex-col gap-4 items-center rounded-2xl '>
-      <UserVideo local id='local' src='https://placeimg.com/192/192/people' />
-      <UserVideo id='remote' src='https://placeimg.com/192/192/people' />
-      <h3 className='text-2xl'>Modes</h3>
-      <ModeButton name='Code' icon={faCode} onClick={() => setMode("Code")} />
+    <div className="flex flex-col gap-4 items-center rounded-2xl ">
+      <UserVideo local id="local" src="https://placeimg.com/192/192/people" />
+      <UserVideo id="remote" src="https://placeimg.com/192/192/people" />
+      <h3 className="text-2xl">Modes</h3>
+      <button onClick={makeOffer}>Call</button>
+      <ModeButton name="Code" icon={faCode} onClick={() => setMode("Code")} />
       <ModeButton
-        name='Math'
+        name="Math"
         icon={faSquareRootVariable}
         onClick={() => setMode("Math")}
       />
       <ModeButton
-        name='Calculator'
+        name="Calculator"
         icon={faCalculator}
         onClick={() => setMode("Calculator")}
       />
@@ -150,10 +152,10 @@ function CollabPage() {
   }
 
   return (
-    <div className='h-screen'>
+    <div className="h-screen">
       <Header />
-      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 h-full'>
-        <section className='rounded-2xl overflow-hidden mb-10'>
+      <div className="grid grid-cols-[1fr,10rem] gap-4 mx-10 h-full">
+        <section className="rounded-2xl overflow-hidden mb-10">
           {renderMode(mode)}
         </section>
         <SideBar setMode={setMode} />
