@@ -1,11 +1,11 @@
-import QuestionCard from "./components/QuestionCard";
+import QuestionCard from "../components/Questions/QuestionCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import ActiveUsers from "./components/ActiveUsers";
+import ActiveUsers from "../components/Questions/ActiveUsers";
 import Header from "../components/Header";
 import { useState } from "react";
-import ResponseCard from "./components/ResponseCard";
-import AddQuestion from "./components/AddQuestionCard";
+import ResponseCard from "../components/Questions/ResponseCard";
+import AddQuestion from "../components/Questions/AddQuestionCard";
 
 function ForumPage() {
   const [selectedQuestion, setSelectedQuestion] = useState<number>(0);
