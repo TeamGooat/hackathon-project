@@ -2,6 +2,7 @@ import { createToken } from "../../utils"
 import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
 import { verifyToken } from "../../utils/jwt"
+import { allQuestions, duplicateUsers } from "./auth.model"
 
 // const user = {
 //   name: 'John Doe',
@@ -93,9 +94,24 @@ export const register = async ( newUser : (User)) => {
     }
 
     // check if username and email is unique
+    // if in the database, there is ANY users with same email 
+    /*
     if (Object.entries(existingUsers).filter(([k,v]) => {
       return v.email === newUser.email! || v.username === newUser.username
     }).length > 0) {
+      return {
+        success: false,
+        error: "Details are not unique"
+      }
+    }
+    */
+    let checkUnique =  duplicateUsers(newUser.username, newUser.email)
+    if ((await checkUnique).length) {
+      return {
+        success: true
+      }
+    }
+    else {
       return {
         success: false,
         error: "Details are not unique"
@@ -116,6 +132,7 @@ export const register = async ( newUser : (User)) => {
 
     Object.assign(verificationTokens, {[verificationCode]: newUser.email})
 }
+
 
 export const verifyUser = (verificationCode: string, email: string) => {
   let linkedEmail = verificationTokens[verificationCode]
