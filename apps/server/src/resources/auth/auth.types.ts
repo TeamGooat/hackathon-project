@@ -11,7 +11,6 @@ export interface RegisterDetails {
   password   :        string
 }
 
-
 export interface UserPayload {
   first_name :        string
   last_name  :        string

@@ -1,18 +1,34 @@
-import Editor, { OnChange } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
+import { useContext } from "react";
+import { CollabState } from "./collabState";
 
-interface CodePadProps {
-  onChange: OnChange | undefined;
-}
+const CodePad = () => {
+  const { socket, code, setCode } = useContext(CollabState)
+  let editor:any;
 
-const CodePad = (props: CodePadProps) => {
+  function handleEditorChange(value: string | undefined, event: Event) {
+    value && setCode(value)
+    value && socket.emit("code:input", value)
+  }
+
+  socket.on("code:input", (code: string) => {
+    setCode(code)
+    editor.setValue(code)
+  })
+
+  const editorDidMount = (e: any) => {
+    editor = e;
+  };
+  
   return (
     <Editor
       theme='vs-dark'
       height='100%'
       width='100%'
       defaultLanguage='javascript'
-      defaultValue='// Hello, this is the code editor'
-      onChange={props.onChange}
+      onChange={handleEditorChange}
+      value={code}
+      onMount={editorDidMount}
     />
   );
 };

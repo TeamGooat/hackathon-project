@@ -21,8 +21,7 @@ export const AuthRouter = createRouter()
           first_name: res.first_name,
           last_name: res.last_name,
         })
-        ctx.res.cookie("access_token", accessToken, { httpOnly: true, path: "/" });
-        ctx.res.cookie("refresh_token", refreshToken, { httpOnly: true, path: "/" });
+        ctx.res.setHeader("Set-Cookie", `access_token=${accessToken};HttpOnly;Path=/; refresh_token=${refreshToken};HttpOnly;Path=/;`);
         return {
           success: true,
           user_id: res.user_id,
@@ -55,16 +54,3 @@ export const AuthRouter = createRouter()
       return authService.verifyOTP(input.otp);
     }
   })
-  // .mutation("signup", {
-  //   input: z.object({
-  //     first_name: z.string(),
-  //     last_name: z.string(),
-  //     username: z.string(),
-  //     email: z.string(),
-  //     password: z.string(),
-  //   }),
-  //   resolve: async ({ input }) => {
-  //     return signUp(input);
-  //   }
-  // })
-  ;
