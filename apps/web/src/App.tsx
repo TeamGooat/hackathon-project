@@ -8,9 +8,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { trpc } from "./utils/trpc";
 import { useState } from "react";
 import { getFetch } from "@trpc/client";
+import { CollabStateProvider } from "./components/Collab/collabState";
 
 function AppContent() {
   return (
+    <CollabStateProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -20,6 +22,7 @@ function AppContent() {
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
+    </CollabStateProvider>
   );
 }
 

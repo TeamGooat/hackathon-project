@@ -1,4 +1,4 @@
-import Editor, { OnChange } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 import { useContext } from "react";
 import { CollabState } from "./collabState";
 

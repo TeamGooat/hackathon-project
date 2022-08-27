@@ -51,7 +51,9 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("code:input", code);
   })
 
-  socket.on("math:input", () => {})
+  socket.on("changemode", (mode) => {
+    socket.broadcast.emit("changemode", mode);
+  })
 });
 
 httpServer.listen(port, () => {
