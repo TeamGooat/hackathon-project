@@ -1,6 +1,6 @@
 import { string, z } from "zod";
 import { createRouter } from "../../utils";
-import { signIn, register, verifyUser, validateTokens } from "./auth.services";
+import { signIn, register, verifyUser, validateTokens } from "./auth.services"
 
 export const AuthRouter = createRouter()
   .mutation("login", {
