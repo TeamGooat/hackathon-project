@@ -5,10 +5,10 @@ function HomePage() {
   return (
     <div className='h-screen'>
       <Header unauthenticated />
-      <div className='grid grid-cols-[1fr,1.25fr] gap-2 h-5/6 p-10'>
+      <div className='grid grid-cols-[1fr,1.1fr] gap-2 h-5/6 px-10 overflow-hidden'>
         <section className='flex flex-col gap-7 rounded-2xl justify-center items-left h-full'>
-          <h1 className='text-6xl font-bold'>Welcome to responseIO</h1>
-          <h1 className='text-5xl font-light'>
+          <h1 className='text-5xl font-bold'>Welcome to responsIO</h1>
+          <h1 className='text-4xl font-light'>
             Get your responses to your questions simple, quick &amp; easy
           </h1>
           <h1 className='text-3xl font-extralight'>
