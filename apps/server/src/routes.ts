@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { AuthRouter } from "./resources/auth";
 import { UserPayload } from "./resources/auth/auth.types";
 import { QuestionRouter } from "./resources/question/question.routes";
+import { RatingRouter } from "./resources/rating/rating.routes";
 import { createTokens, verifyToken } from "./utils/jwt";
 import { createRouter } from "./utils/trpc";
 
@@ -59,6 +60,7 @@ export const appRouter = createRouter()
     }
   })
   .merge("question.", QuestionRouter)
+  .merge("rating.", RatingRouter)
   ;
 
 export type AppRouter = typeof appRouter;
