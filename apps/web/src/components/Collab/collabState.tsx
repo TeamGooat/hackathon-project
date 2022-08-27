@@ -9,6 +9,10 @@ export const CollabState = React.createContext<ICollabState>({
   code: "",
   setCode: (code: string) => {},
   setMode: (mode: Mode) => {},
+  lineCount: 0,
+  editorLines: {},
+  setEditorLines: (editorLines: any) => {},
+  setLineCount: (lineCount: number) => {},
 })
 
 export interface ICollabState {
@@ -17,6 +21,10 @@ export interface ICollabState {
   setCode: (code: string) => void;
   mode: Mode;
   setMode: (mode: Mode) => void;
+  lineCount: number;
+  editorLines: { [key: number]: string };
+  setEditorLines: (editorLines: any) => void;
+  setLineCount: (lineCount: number) => void;
 }
 
 export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => {
@@ -26,11 +34,35 @@ export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => 
   const [socket, _] = useState<Socket>(io("http://localhost:4000"));
   const [code, setCode] = useState<string>("// Hello, this is the code editor");
   const [mode, _setMode] = useState<Mode>("Code");
+  const [lineCount, _setLineCount] = useState(1);
+  const [editorLines, _setEditorLines] = useState<{ [key: number]: string }>({
+    1: "\\frac{1}{\\sqrt{2}}\\cdot 2",
+  });
 
   const setMode = (_mode: Mode) => {
     _setMode(_mode)
     socket.emit("changemode", _mode)
   }
+
+  const setEditorLines = (lines: { [key: number]: string }) => {
+    _setEditorLines(lines)
+    socket.emit("math:input", lines)
+  }
+
+  const setLineCount = (count: number) => {
+    _setLineCount(count)
+    socket.emit("math:line", count)
+  }
+
+  socket.on("math:input", (lines: { [key: number]: string }) => {
+    console.log("FUCK")
+    _setEditorLines(lines)
+  })
+
+  socket.on("math:line", (count: number) => {
+    console.log("CUNT", mode)
+    _setLineCount(count)
+  })
 
   socket.on("changemode", (mode: Mode) => {
     console.log("SHIT", mode)
@@ -43,6 +75,10 @@ export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => 
     setCode,
     mode,
     setMode,
+    lineCount,
+    editorLines,
+    setEditorLines,
+    setLineCount,
   }
   
   return (

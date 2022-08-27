@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { addStyles, EditableMathField } from "react-mathquill";
+import { CollabState } from "./collabState";
 
 const MathPad = () => {
+  const { setEditorLines, setLineCount, editorLines, lineCount } = useContext(CollabState)
   addStyles();
-
-  const [lineCount, setLineCount] = useState(1);
-
-  const [editorLines, setEditorLines] = useState<{ [key: number]: string }>({
-    1: "\\frac{1}{\\sqrt{2}}\\cdot 2",
-  });
+  
 
   /**
    * Called when you press enter.
