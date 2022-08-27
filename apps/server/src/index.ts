@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 app.use(cors({
   credentials: true,
-  origin: "*"
+  origin: ["http://localhost:3000"]
 }))
 
 app.use(
@@ -45,6 +45,22 @@ io.on('connection', (socket) => {
 
   socket.on("ice", (ice) => {
     socket.broadcast.emit("ice", ice);
+  })
+
+  socket.on("code:input", (code: string) => {
+    socket.broadcast.emit("code:input", code);
+  })
+
+  socket.on("changemode", (mode) => {
+    socket.broadcast.emit("changemode", mode);
+  })
+
+  socket.on("math:input", (input: { [key: number]: string }) => {
+    socket.broadcast.emit("math:input", input);
+  })
+
+  socket.on("math:line", (input: number) => {
+    socket.broadcast.emit("math:line", input);
   })
 });
 

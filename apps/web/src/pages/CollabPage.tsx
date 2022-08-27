@@ -10,11 +10,11 @@ import {
   faCode,
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import CodePad from "../components/Collab/CodePad";
 import MathPad from "../components/Collab/MathPad";
+import { CollabState, ICollabState } from "../components/Collab/collabState";
 
-type Mode = "Code" | "Math" | "Calculator";
 
 const ws = io("http://localhost:4000");
 const config: RTCConfiguration = {
@@ -37,8 +37,8 @@ const config: RTCConfiguration = {
 };
 var pc = new RTCPeerConnection(config);
 
-function SideBar(props: { setMode: (mode: Mode) => void }) {
-  const { setMode } = props;
+function SideBar() {
+  const { setMode } = useContext<ICollabState>(CollabState);
 
   let local_vid: HTMLVideoElement;
   let remote_vid: HTMLVideoElement;
@@ -134,21 +134,16 @@ function SideBar(props: { setMode: (mode: Mode) => void }) {
 }
 
 function CollabPage() {
-  const [mode, setMode] = useState<Mode>("Code");
+  const {mode} = useContext(CollabState);
 
-  // This function is run everytime something in the editor changes
-  function handleEditorChange(value: string | undefined, event: Event) {
-    console.log(value);
-  }
-
-  function renderMode(mode: Mode) {
+  function renderMode() {
     switch (mode) {
       case "Code":
-        return <CodePad onChange={handleEditorChange} />;
+        return <CodePad/>;
       case "Math":
         return <MathPad />;
       default:
-        return <CodePad onChange={handleEditorChange} />;
+        return <CodePad/>;
     }
   }
 
@@ -158,11 +153,11 @@ function CollabPage() {
       <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 mb-5 overflow-hidden h-full'>
         <div className="flex flex-col">
           <div className='grow rounded-t-2xl overflow-hidden'>
-            {renderMode(mode)}
+            {renderMode()}
           </div>
           <TextBar />
         </div>
-        <SideBar setMode={setMode} />
+        <SideBar />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { AuthRouter } from "./resources/auth";
 import { validateTokens } from "./resources/auth/auth.services";
 import { QuestionRouter } from "./resources/question/question.routes";
 import { createRouter } from "./utils/trpc";
+import { JWTToken } from "./resources/auth/auth.services";
 
 export const appRouter = createRouter()
   .merge("auth.", AuthRouter)

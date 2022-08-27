@@ -6,17 +6,29 @@ import Header from "../components/Header";
 import { useState } from "react";
 import ResponseCard from "../components/Questions/ResponseCard";
 import AddQuestion from "../components/Questions/AddQuestionCard";
+import { trpc } from "../utils/trpc";
 
 function ForumPage() {
   const [selectedQuestion, setSelectedQuestion] = useState<number>(0);
   const [addQuestion, setAddQuestion] = useState<boolean>(false);
 
+  const a = trpc.useMutation(["question.new"])
+  const hi = trpc.useQuery(["question.all"])
+
+  const add = () => {
+    a.mutate({
+      question: "hello?",
+      user_id: 2
+    })
+  }
   return (
     <div className='h-screen'>
       <Header unauthenticated />
 
       <div className='grid grid-cols-[2fr,1fr] gap-4 pt-10 h-5/6 px-10 overflow-hidden'>
         <div>
+          <button onClick={add}>asd</button>
+          <div>{JSON.stringify(hi.data)}</div>
           <div
             id='add question'
             className='flex flex-row justify-between items-center'

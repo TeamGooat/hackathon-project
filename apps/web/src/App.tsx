@@ -9,9 +9,26 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { trpc } from "./utils/trpc";
 import { useState } from "react";
 import { getFetch } from "@trpc/client";
+import { CollabStateProvider } from "./components/Collab/collabState";
 
-function App() {
-  const [queryClient] = useState(() => new QueryClient({}));
+function AppContent() {
+  return (
+    <CollabStateProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forum" element={<ForumPage />} />
+        <Route path="/collab" element={<CollabPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
+    </CollabStateProvider>
+  );
+}
+
+const App = () => {
+  const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
       url: "http://localhost:4000/trpc",
@@ -38,9 +55,10 @@ function App() {
             <Route path="/reset-password" element={<ForgetPasswordPage />} />
           </Routes>
         </BrowserRouter>
+        <AppContent></AppContent>
       </QueryClientProvider>
     </trpc.Provider>
-  );
+  )
 }
 
 export default App;
