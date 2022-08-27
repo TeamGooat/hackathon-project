@@ -109,7 +109,7 @@ function SideBar() {
       <UserVideo local id="local" src='https://placeimg.com/192/192/people' />
       <UserVideo id="remote" src='https://placeimg.com/192/192/people' />
       <h3 className='text-2xl'>Modes</h3>
-      <button onClick={makeOffer}>Call</button>
+      <button onClick={() => {ws.emit("request_session")}}>Call</button>
       <ModeButton name='Calculator' icon={faCalculator} />
       <ModeButton name='Code' icon={faCode} />
       <ModeButton name='Math' icon={faSquareRootVariable} />
