@@ -1,9 +1,10 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import { addStyles, EditableMathField } from "react-mathquill";
 import { CollabState } from "./collabState";
 
 const MathPad = () => {
-  const { setEditorLines, setLineCount, editorLines, lineCount } = useContext(CollabState)
+  const { setEditorLines, setLineCount, editorLines, lineCount } =
+    useContext(CollabState);
   addStyles();
 
   /**
@@ -23,10 +24,13 @@ const MathPad = () => {
   /**
    * Set the latex for the lineNumber
    */
-  const setField = useCallback((lineNumber: number, latex: any) => {
-    editorLines[lineNumber] = latex.latex();
-    setEditorLines(editorLines);
-  }, [editorLines, setEditorLines])
+  const setField = useCallback(
+    (lineNumber: number, latex: any) => {
+      editorLines[lineNumber] = latex.latex();
+      setEditorLines(editorLines);
+    },
+    [editorLines, setEditorLines]
+  );
 
   return (
     <div
