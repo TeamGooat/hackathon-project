@@ -152,10 +152,10 @@ function CollabPage() {
   }
 
   return (
-    <div className="h-screen">
+    <div className='h-screen'>
       <Header />
-      <div className="grid grid-cols-[1fr,10rem] gap-4 mx-10 h-full">
-        <section className="rounded-2xl overflow-hidden mb-10">
+      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 h-full'>
+        <section className='rounded-2xl overflow-hidden mb-10'>
           {renderMode(mode)}
         </section>
         <SideBar setMode={setMode} />
