@@ -90,6 +90,8 @@ function SideBar(props: { setMode: (mode: Mode) => void }) {
       pc.addTrack(track, local_stream);
     });
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const makeOffer = async () => {
     const offer = await pc.createOffer({
       offerToReceiveVideo: true,
@@ -113,7 +115,6 @@ function SideBar(props: { setMode: (mode: Mode) => void }) {
       <UserVideo local id='local' src='https://placeimg.com/192/192/people' />
       <UserVideo id='remote' src='https://placeimg.com/192/192/people' />
       <h3 className='text-2xl'>Modes</h3>
-      <button onClick={makeOffer}>Call</button>
       <ModeButton name='Code' icon={faCode} onClick={() => setMode("Code")} />
       <ModeButton
         name='Math'
