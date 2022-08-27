@@ -17,6 +17,28 @@ export class QuestionStore {
     })
   }
 
+  async getAnswered() {
+    const answered = await this.client.answers.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+          }
+        },
+        question: {
+          include: {
+            user: {
+              select: {
+                username: true,
+              }
+            }
+          }
+        }
+      }
+    })
+    return answered
+  }
+
   async getQuestions() {
     const keys = await this.redis.sMembers("questions")
     const qs = await Promise.all(
