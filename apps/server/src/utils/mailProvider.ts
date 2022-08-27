@@ -19,7 +19,7 @@ export class MailProvider {
 
   async sendMail(to: string, subject: string, body: string) {
     let info = await this.mailer.sendMail({
-      from: `"ResponsIO 👻" <${process.env.EMAIL}>`, // sender address
+      from: `"ResponsIO 🔑" <${process.env.EMAIL}>`, // sender address
       to,
       subject,
       html: body
