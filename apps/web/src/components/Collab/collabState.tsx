@@ -5,11 +5,11 @@ export type Mode = "Code" | "Math" | "Calculator";
 
 export const CollabState = React.createContext<ICollabState>({
   mode: "Code",
-  socket: io("http://localhost:4000"),
+  socket: io(""),
   code: "",
   setCode: (code: string) => {},
   setMode: (mode: Mode) => {},
-  lineCount: 0,
+  lineCount: 1,
   editorLines: {},
   setEditorLines: (editorLines: any) => {},
   setLineCount: (lineCount: number) => {},
@@ -45,8 +45,8 @@ export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => 
   }
 
   const setEditorLines = (lines: { [key: number]: string }) => {
-    _setEditorLines(lines)
-    socket.emit("math:input", lines)
+      _setEditorLines(lines)
+      socket.emit("math:input", lines)
   }
 
   const setLineCount = (count: number) => {
@@ -55,17 +55,14 @@ export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => 
   }
 
   socket.on("math:input", (lines: { [key: number]: string }) => {
-    console.log("FUCK")
     _setEditorLines(lines)
   })
 
   socket.on("math:line", (count: number) => {
-    console.log("CUNT", mode)
     _setLineCount(count)
   })
 
   socket.on("changemode", (mode: Mode) => {
-    console.log("SHIT", mode)
     _setMode(mode)
   })
 
