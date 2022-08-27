@@ -1,6 +1,6 @@
 import { string, z } from "zod";
 import { createRouter } from "../../utils";
-import { signIn, register } from "./auth.services";
+import { signIn, register, verify } from "./auth.services";
 
 export const AuthRouter = createRouter()
   .mutation("login", {
@@ -24,5 +24,14 @@ export const AuthRouter = createRouter()
     }),
     resolve: async ({ input }) => {
       return register(input);
+    }
+  })
+  .mutation("verify", {
+    input: z.object({
+      verificationCode: z.string(),
+      email: z.string()
+    }),
+    resolve: async ({ input }) => {
+      return verify(input.verificationCode, input.email);
     }
   })
