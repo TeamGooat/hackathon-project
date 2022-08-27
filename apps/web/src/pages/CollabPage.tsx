@@ -113,6 +113,12 @@ function SideBar(props: { setMode: (mode: Mode) => void }) {
       <UserVideo local id='local' src='https://placeimg.com/192/192/people' />
       <UserVideo id='remote' src='https://placeimg.com/192/192/people' />
       <h3 className='text-2xl'>Modes</h3>
+<<<<<<< HEAD
+      <button onClick={() => {ws.emit("request_session")}}>Call</button>
+      <ModeButton name='Calculator' icon={faCalculator} />
+      <ModeButton name='Code' icon={faCode} />
+      <ModeButton name='Math' icon={faSquareRootVariable} />
+=======
       <button onClick={makeOffer}>Call</button>
       <ModeButton name='Code' icon={faCode} onClick={() => setMode("Code")} />
       <ModeButton
@@ -125,6 +131,7 @@ function SideBar(props: { setMode: (mode: Mode) => void }) {
         icon={faCalculator}
         onClick={() => setMode("Calculator")}
       />
+>>>>>>> f2812cf949c9149c61ff1f562d9aa13bc4e8f5fe
     </div>
   );
 }
