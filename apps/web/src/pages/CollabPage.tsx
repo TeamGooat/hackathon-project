@@ -10,8 +10,8 @@ import {
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import CodePad from "./components/CodePad";
-import MathPad from "./components/MathPad";
+import CodePad from "../components/Collab/CodePad";
+import MathPad from "../components/Collab/MathPad";
 
 type Mode = "Code" | "Math" | "Calculator";
 
