@@ -10,6 +10,7 @@ import { useState } from "react";
 import { getFetch } from "@trpc/client";
 import { CollabStateProvider } from "./components/Collab/collabState";
 import AddQuestionPage from "./pages/AddQuestionPage";
+import OtpPage from "./pages/OtpPage";
 
 function AppContent() {
   return (
@@ -17,6 +18,7 @@ function AppContent() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage />} />
+          <Route path='/verify' element={<OtpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/forum' element={<ForumPage />} />
           <Route path='/question' element={<AddQuestionPage />} />
