@@ -26,7 +26,8 @@ export const appRouter = createRouter()
         })
         ctx.res.cookie("access_token", newTokens.accessToken, { httpOnly: true, path: "/" });
         ctx.res.cookie("refresh_token", newTokens.refreshToken, { httpOnly: true, path: "/" });
-        return next()
+        ctx.res.setHeader("user-id", (valid.decoded as UserPayload).user_id);
+        return next();
       } else {
         const rValid = verifyToken(refreshToken)
         if (rValid.success) {
@@ -57,7 +58,7 @@ export const appRouter = createRouter()
       };
     }
   })
-  // .merge("question.", QuestionRouter)
+  .merge("question.", QuestionRouter)
   ;
 
 export type AppRouter = typeof appRouter;

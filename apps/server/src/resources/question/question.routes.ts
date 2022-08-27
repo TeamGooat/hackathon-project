@@ -1,20 +1,21 @@
 import { z } from "zod";
 import { createRouter } from "../../utils";
-import { GetQuestions, NewQuestion } from "./question.services";
+import { QuestionService } from "./question.services";
 
+const questionService = new QuestionService();
 export const QuestionRouter = createRouter()
+  .query("all", {
+    resolve: async () => {
+      return await questionService.getQuestions();
+    }
+  })
   .mutation("new", {
     input: z.object({
       question: z.string(),
-      user_id: z.number(),
     }),
-    resolve: async ({ input }) => {
-      return NewQuestion(input.user_id, input.question);
-    }
-  })
-  .query("all", {
-    resolve: async ({ input }) => {
-      return GetQuestions();
+    resolve: async ({ input, ctx }) => {
+      const id: string = ctx.res.getHeader("user-id") as string;
+      return questionService.newQuestion(id, input.question);
     }
   })
   ;

@@ -1,13 +1,16 @@
-import { createClient } from 'redis'
-import { RedisClient } from '../../utils'
+import { QuestionStore } from './question.store';
 
-const rc = new RedisClient()
+export class QuestionService {
+  private store: QuestionStore;
+  constructor() {
+    this.store = new QuestionStore();
+  }
 
-export const NewQuestion = async (userId: number, question: string) => {
-  rc.setQuestion(userId, question)
-}
+  async getQuestions() {
+    return await this.store.getQuestions();
+  }
 
-export const GetQuestions = async () => {
-  const vals = await rc.getQuestions()
-  return vals.filter(v => v !== null)
+  async newQuestion(userId: string, question: string) {
+    return await this.store.newQuestion(userId, question);
+  }
 }
