@@ -13,4 +13,8 @@ export class QuestionService {
   async newQuestion(userId: string, question: string) {
     return await this.store.newQuestion(userId, question);
   }
+
+  async answerQuestion(userId: string, answer: string, questionId: string) {
+    return await this.store.answerQuestion(userId, answer, questionId);
+  }
 }
