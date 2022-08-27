@@ -46,8 +46,8 @@ export const signIn = async ({ username, password }: User) => {
   const hashPassword = hash.update(password);
   if (currentUser && currentUser.email === username && hashPassword.digest('hex') === currentUser.password) {
     return {
-      access_token: createToken({ name: currentUser.username, email: currentUser.email }, "5s"),
-      refresh_token: createToken({ name: currentUser.username, email: currentUser.email }, "5s"),
+      access_token: createToken({ name: currentUser.username, email: currentUser.email }, "5m"),
+      refresh_token: createToken({ name: currentUser.username, email: currentUser.email }, "30d"),
       success: true
     }
   }
@@ -58,6 +58,8 @@ export const signIn = async ({ username, password }: User) => {
 }
 
 export const validateTokens = async ({ refreshToken, accessToken } : JWTToken) => {
+  console.log(refreshToken)
+  console.log(accessToken)
   // check if access token is valid
   if (verifyToken(accessToken).success) {
     return {
