@@ -47,7 +47,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("ice", ice);
   })
 
-  // socket.on()
+  socket.on("code:input", (code: string) => {
+    socket.broadcast.emit("code:input", code);
+  })
+
+  socket.on("math:input", () => {})
 });
 
 httpServer.listen(port, () => {
