@@ -54,16 +54,3 @@ export const AuthRouter = createRouter()
       return authService.verifyOTP(input.otp);
     }
   })
-  // .mutation("signup", {
-  //   input: z.object({
-  //     first_name: z.string(),
-  //     last_name: z.string(),
-  //     username: z.string(),
-  //     email: z.string(),
-  //     password: z.string(),
-  //   }),
-  //   resolve: async ({ input }) => {
-  //     return signUp(input);
-  //   }
-  // })
-  ;
