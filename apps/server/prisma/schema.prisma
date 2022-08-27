@@ -14,20 +14,21 @@ datasource db {
 
 model User {
   id                 Int          @id @default(autoincrement())
+  exposed_id         String       @unique
   first_name         String
   last_name          String
-  username           String
-  email              String
+  username           String       @unique
+  email              String       @unique
   password           String
-  verified           Boolean
-  anonymous          Boolean
+  verified           Boolean      @default(false)
+  anonymous          Boolean      @default(false)
   ratings            Rating[]
   questions_asked    Questions[]  @relation("QuestionFrom")
   questions_answered Questions[]  @relation("AnsweredBy")
   tokens             UserTokens[]
   otp                UserOTP?
-  created_at         DateTime
-  updated_at         DateTime
+  created_at         DateTime     @default(now())
+  updated_at         DateTime     @updatedAt
 }
 
 model Rating {
@@ -35,8 +36,8 @@ model Rating {
   user       User     @relation(fields: [user_id], references: [id])
   user_id    Int
   rating     Int
-  created_at DateTime
-  updated_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Questions {
@@ -47,8 +48,8 @@ model Questions {
   answer         String
   answered_by    User     @relation("AnsweredBy", fields: [answered_by_id], references: [id])
   answered_by_id Int
-  created_at     DateTime
-  updated_at     DateTime
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model UserTokens {
@@ -56,15 +57,16 @@ model UserTokens {
   user       User     @relation(fields: [user_id], references: [id])
   user_id    Int
   token      String
-  created_at DateTime
-  updated_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model UserOTP {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [user_id], references: [id])
   user_id    Int      @unique
-  otp        String
-  created_at DateTime
-  updated_at DateTime
+  otp        String   @unique
+  expires_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
