@@ -4,15 +4,23 @@ import ForumPage from "./pages/ForumPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { trpc } from "../utils/trpc";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { trpc } from "./utils/trpc";
 import { useState } from "react";
+import { getFetch } from "@trpc/client";
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient({}));
   const [trpcClient] = useState(() =>
     trpc.createClient({
       url: "http://localhost:4000/trpc",
+      fetch: async (input, init?) => {
+        const fetch = getFetch();
+        return fetch(input, {
+          ...init,
+          credentials: "include",
+        });
+      },
     })
   );
 

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { trpc } from "../../../utils/trpc";
+import { trpc } from "../../utils/trpc";
 
 interface ModeButtonProps {
   name: string;
