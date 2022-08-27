@@ -9,37 +9,26 @@ import { trpc } from "./utils/trpc";
 import { useState } from "react";
 import { getFetch } from "@trpc/client";
 
-function AppContent() {
-  
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forum" element={<ForumPage />} />
-        <Route path="/collab" element={<CollabPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-const App = () => {
+function App() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
       url: "http://localhost:4000/trpc",
-      fetch: async (input, init?) => {
-        const fetch = getFetch();
-        return fetch(input, {...init, credentials: "include"});
-      }
     })
   );
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <AppContent></AppContent>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forum" element={<ForumPage />} />
+            <Route path="/collab" element={<CollabPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </BrowserRouter>
       </QueryClientProvider>
     </trpc.Provider>
   )

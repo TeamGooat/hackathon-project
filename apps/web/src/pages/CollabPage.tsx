@@ -10,8 +10,8 @@ import {
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import CodePad from "./components/CodePad";
-import MathPad from "./components/MathPad";
+import CodePad from "../components/Collab/CodePad";
+import MathPad from "../components/Collab/MathPad";
 
 type Mode = "Code" | "Math" | "Calculator";
 
@@ -152,12 +152,12 @@ function CollabPage() {
   }
 
   return (
-    <div className="h-screen">
+    <div className='flex flex-col h-screen'>
       <Header />
-      <div className="grid grid-cols-[1fr,10rem] gap-4 mx-10 h-full">
-        <section className="rounded-2xl overflow-hidden mb-10">
+      <div className='grid grid-cols-[1fr,10rem] gap-4 mx-10 mb-10 overflow-hidden h-full'>
+        <div className='flex rounded-2xl overflow-hidden mb-10 h-full'>
           {renderMode(mode)}
-        </section>
+        </div>
         <SideBar setMode={setMode} />
       </div>
     </div>
