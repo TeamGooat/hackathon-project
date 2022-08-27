@@ -28,11 +28,10 @@ export const AuthRouter = createRouter()
   })
   .mutation("verifyUser", {
     input: z.object({
-      verificationCode: z.string(),
-      email: z.string()
+      verificationCode: z.string()
     }),
     resolve: async ({ input }) => {
-      return verifyUser(input.verificationCode, input.email);
+      return verifyUser(input.verificationCode);
     }
   })
   .mutation("validateTokens", {

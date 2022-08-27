@@ -2,6 +2,8 @@ import { createToken } from "../../utils"
 import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
 import { verifyToken } from "../../utils/jwt"
+import { User } from "../../utils/types/user"
+import { createUser, createUserOTP, setVerifiedUser } from "./auth.model"
 
 // const user = {
 //   name: 'John Doe',
@@ -16,17 +18,6 @@ const existingUsers : {
 const verificationTokens: {
   [key: string]: string
 } = {}
-
-interface User {
-  username: string
-  password: string
-  fName?: string,
-  lName?: string, 
-  email?: string | undefined, 
-  rePassword?: string, 
-  anonymous?: boolean,
-  isVerified?: boolean
-}
 
 interface JWTToken {
   refreshToken: string,
@@ -93,43 +84,29 @@ export const register = async ( newUser : (User)) => {
     }
 
     // check if username and email is unique
-    if (Object.entries(existingUsers).filter(([k,v]) => {
-      return v.email === newUser.email! || v.username === newUser.username
-    }).length > 0) {
-      return {
-        success: false,
-        error: "Details are not unique"
-      }
-    }
+    // if (Object.entries(existingUsers).filter(([k,v]) => {
+    //   return v.email === newUser.email! || v.username === newUser.username
+    // }).length > 0) {
+    //   return {
+    //     success: false,
+    //     error: "Details are not unique"
+    //   }
+    // }
 
     // if all a-ok then hash + salt password and store
     const hash = createHash('sha256');
     hash.update(newUser.password);
     newUser.password = hash.digest('hex')
-    Object.assign(existingUsers, {[newUser.email!]: newUser})
+    let user = await createUser(newUser)
 
     // create verification token
     // send via email
     let verificationCode = Math.random().toString(36).substring(2,8)
 
     sendEmail("Verify your email", `Hi! Your verification code is: ${verificationCode}`, newUser.email!)
-
-    Object.assign(verificationTokens, {[verificationCode]: newUser.email})
-}
-
-export const verifyUser = (verificationCode: string, email: string) => {
-  let linkedEmail = verificationTokens[verificationCode]
-  if (linkedEmail === email) {
-    existingUsers[linkedEmail].isVerified = true
-    delete existingUsers[linkedEmail]
-    return {
-      success: true,
-      message: "User has been verified"
-    }
-  } else {
-    return {
-      success: false,
-      message: "Verification token is invalid."
-    }
+    createUserOTP(verificationCode, user.id)
   }
+
+export const verifyUser = (verificationCode: string) => {
+  return setVerifiedUser(verificationCode)
 }
