@@ -3,27 +3,12 @@ import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
 import { verifyToken } from "../../utils/jwt"
 import { User } from "../../utils/types/user"
-import { createUser, createUserOTP, setVerifiedUser } from "./auth.model"
-
-// const user = {
-//   name: 'John Doe',
-//   email: 'johndoe@mail.com',
-//   password: '123456',
-// }
-
-const existingUsers : {
-  [key: string]: User
-} = {}
-
-const verificationTokens: {
-  [key: string]: string
-} = {}
+import { createUser, createUserOTP, createUserToken, setVerifiedUser, signInUser } from "./auth.model"
 
 interface JWTToken {
   refreshToken: string,
   accessToken: string
 }
-
 
 /**
  * Signs user in and returns access and refresh web tokens
@@ -32,15 +17,28 @@ interface JWTToken {
  * @returns access and refresh token if valid, otherwise error
  */
 export const signIn = async ({ username, password }: User) => {
-  const currentUser = existingUsers[username!];
-  const hash = createHash('sha256');
-  const hashPassword = hash.update(password);
-  if (currentUser && currentUser.email === username && hashPassword.digest('hex') === currentUser.password) {
-    return {
+  // create hashed password
+  let hash = createHash('sha256');
+  hash.update(password);
+
+  // check if details are valid
+  let currentUser = await signInUser(username, hash.digest('hex'))
+
+  // if valid then return tokens
+  if (currentUser !== null) {
+
+    // store refresh token in db
+    const tokenData = {
       access_token: createToken({ name: currentUser.username, email: currentUser.email }, "5m"),
       refresh_token: createToken({ name: currentUser.username, email: currentUser.email }, "30d"),
       success: true
     }
+
+    // store refresh token in db
+    createUserToken(tokenData.refresh_token, currentUser.id)
+
+    return tokenData
+
   }
   return {
     error: 'Invalid credentials',
@@ -49,8 +47,6 @@ export const signIn = async ({ username, password }: User) => {
 }
 
 export const validateTokens = async ({ refreshToken, accessToken } : JWTToken) => {
-  console.log(refreshToken)
-  console.log(accessToken)
   // check if access token is valid
   if (verifyToken(accessToken).success) {
     return {
@@ -61,11 +57,17 @@ export const validateTokens = async ({ refreshToken, accessToken } : JWTToken) =
   // if access token invalid, check refresh token
   let res = verifyToken(refreshToken)
   if (res.success) {
-    return {
+
+    const tokenData = {
       success: true,
       access_token: createToken((res as {success: boolean, payload: string | any}).payload, "5m"),
       refresh_token: createToken((res as {success: boolean, payload: string | any}).payload, "30d"),
     }
+
+    //createUserToken(tokenData.refresh_token, res.payload.) // add user id here some how
+
+    return tokenData
+
   } else {
     return {
       success: false,

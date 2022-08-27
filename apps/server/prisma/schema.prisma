@@ -56,8 +56,8 @@ model UserToken {
   user       User     @relation(fields: [user_id], references: [id])
   user_id    Int
   token      String
-  created_at DateTime
-  updated_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model UserOTP {

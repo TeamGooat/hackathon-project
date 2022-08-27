@@ -94,3 +94,25 @@ export const createUserOTP = async (verificationCode: string, userID: number) =>
         data: otp
     })
 }
+
+export const signInUser = async (email: string, hashedPassword: string) => {
+    const user = await prisma.user.findFirst({
+        where: {
+            email: email,
+            password: hashedPassword
+        }
+    })
+
+    return user
+}
+
+export const createUserToken = async (token: string, userID: number) => {
+    const tokenData = {
+        user_id: userID,
+        token: token
+    }
+
+    await prisma.userToken.create({
+        data: tokenData
+    })
+}
