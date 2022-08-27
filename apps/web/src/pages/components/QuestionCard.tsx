@@ -5,17 +5,24 @@ interface QuestionCardInterface {
   title: string;
   author: string;
   timePosted: number;
-  description: string;
+  questionId: number;
+  setSelectedQuestion: Function;
 }
 
 function QuestionCard({
   title,
   author,
   timePosted,
-  description,
+  questionId,
+  setSelectedQuestion,
 }: QuestionCardInterface) {
   return (
-    <div className="card bg-base-content bg-opacity-10 hover:text-primary my-10">
+    <div
+      className="card bg-base-content bg-opacity-10 hover:text-primary my-10"
+      onClick={() => {
+        setSelectedQuestion(questionId);
+      }}
+    >
       <div className="card-body cursor-pointer">
         <p className="pb-2 opacity-70">{`Posted by ${author} · ${timePosted} min ago`}</p>
         <h2 className="card-title justify-between">

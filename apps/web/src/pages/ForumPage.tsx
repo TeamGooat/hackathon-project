@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import ActiveUsers from "./components/ActiveUsers";
 import Header from "../components/Header";
+import { useState } from "react";
+import ResponseCard from "./components/ResponseCard";
 
 function ForumPage() {
+  const [selectedQuestion, setSelectedQuestion] = useState<number>(0);
   return (
     <div className="h-screen">
       <Header unauthenticated />
@@ -19,18 +22,29 @@ function ForumPage() {
             <FontAwesomeIcon icon={faCirclePlus} className="text-4xl pr-10" />
           </div>
           <div className="">
-            <QuestionCard
-              title="How to hackathon?"
-              author="kimchi8"
-              timePosted={30}
-              description="something about the question"
-            />
-            <QuestionCard
-              title="How to hackathon?"
-              author="kimchi8"
-              timePosted={30}
-              description="something about the question"
-            />
+            {selectedQuestion != 0 ? (
+              ""
+            ) : (
+              <>
+                <QuestionCard
+                  title="How to hackathon?"
+                  author="kimchi8"
+                  timePosted={30}
+                  questionId={1}
+                  setSelectedQuestion={setSelectedQuestion}
+                />
+                <QuestionCard
+                  title="How to hackathon?"
+                  author="kimchi8"
+                  timePosted={30}
+                  questionId={2}
+                  setSelectedQuestion={setSelectedQuestion}
+                />
+              </>
+            )}
+            {selectedQuestion != 0 && (
+              <ResponseCard questionId={selectedQuestion} />
+            )}
           </div>
         </div>
         <div
