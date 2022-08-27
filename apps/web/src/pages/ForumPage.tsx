@@ -5,9 +5,12 @@ import ActiveUsers from "./components/ActiveUsers";
 import Header from "../components/Header";
 import { useState } from "react";
 import ResponseCard from "./components/ResponseCard";
+import AddQuestion from "./components/AddQuestionCard";
 
 function ForumPage() {
   const [selectedQuestion, setSelectedQuestion] = useState<number>(0);
+  const [addQuestion, setAddQuestion] = useState<boolean>(false);
+
   return (
     <div className="h-screen">
       <Header unauthenticated />
@@ -19,10 +22,17 @@ function ForumPage() {
             className="flex flex-row justify-between items-center"
           >
             <h1 className="text-3xl font-bold">Questions</h1>
-            <FontAwesomeIcon icon={faCirclePlus} className="text-4xl pr-10" />
+            <FontAwesomeIcon
+              icon={faCirclePlus}
+              className="text-4xl pr-10 hover:text-secondary hover:cursor-pointer"
+              onClick={() => {
+                setAddQuestion(true);
+              }}
+            />
           </div>
           <div className="">
-            {selectedQuestion != 0 ? (
+            {addQuestion && <AddQuestion />}
+            {selectedQuestion != 0 || addQuestion === true ? (
               ""
             ) : (
               <>

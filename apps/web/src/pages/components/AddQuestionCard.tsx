@@ -1,15 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface ResponseCardInterface {
-  questionId: number;
-}
+interface AddQuestionCardInterface {}
 
-function ResponseCard({ questionId }: ResponseCardInterface) {
+function AddQuestion() {
   return (
     <div className="card bg-base-content bg-opacity-10 hover:text-primary my-10">
-      resource card
+      Add Question Card
     </div>
   );
 }
 
-export default ResponseCard;
+export default AddQuestion;
