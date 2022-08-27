@@ -10,7 +10,7 @@ function ModeButton(props: ModeButtonProps) {
   const { name, icon } = props;
 
   return (
-    <button className='btn gap-2 w-full '>
+    <button className='btn text-md gap-2 w-full '>
       <FontAwesomeIcon icon={icon} />
       {name}
     </button>

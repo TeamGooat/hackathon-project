@@ -15,7 +15,7 @@ function SideBar() {
     <div className='flex flex-col gap-4 items-center rounded-2xl '>
       <UserVideo src='https://placeimg.com/192/192/people' />
       <UserVideo src='https://placeimg.com/192/192/people' />
-      <h3 className='text-3xl'>Modes</h3>
+      <h3 className='text-2xl'>Modes</h3>
       <ModeButton name='Calculator' icon={faCalculator} />
       <ModeButton name='Code' icon={faCode} />
       <ModeButton name='Math' icon={faSquareRootVariable} />
