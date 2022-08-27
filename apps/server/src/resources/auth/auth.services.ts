@@ -1,6 +1,7 @@
 import { createToken } from "../../utils"
 import { createHash } from "node:crypto"
 import { sendEmail } from "../../utils/email"
+import { verifyToken } from "../../utils/jwt"
 
 // const user = {
 //   name: 'John Doe',
@@ -27,6 +28,11 @@ interface User {
   isVerified?: boolean
 }
 
+interface JWTToken {
+  refreshToken: string,
+  accessToken: string
+}
+
 
 /**
  * Signs user in and returns access and refresh web tokens
@@ -40,8 +46,8 @@ export const signIn = async ({ username, password }: User) => {
   const hashPassword = hash.update(password);
   if (currentUser && currentUser.email === username && hashPassword.digest('hex') === currentUser.password) {
     return {
-      access_token: createToken({ name: currentUser.username, email: currentUser.email }, "5m"),
-      refresh_token: createToken({ name: currentUser.username, email: currentUser.email }, "30d"),
+      access_token: createToken({ name: currentUser.username, email: currentUser.email }, "5s"),
+      refresh_token: createToken({ name: currentUser.username, email: currentUser.email }, "5s"),
       success: true
     }
   }
@@ -51,8 +57,28 @@ export const signIn = async ({ username, password }: User) => {
   }
 }
 
-export const validateTokens = async ({ refreshToken, accessToken }) {
-  
+export const validateTokens = async ({ refreshToken, accessToken } : JWTToken) => {
+  // check if access token is valid
+  if (verifyToken(accessToken).success) {
+    return {
+      success: true,
+    }
+  }
+
+  // if access token invalid, check refresh token
+  let res = verifyToken(refreshToken)
+  if (res.success) {
+    return {
+      success: true,
+      access_token: createToken((res as {success: boolean, payload: string | any}).payload, "5m"),
+      refresh_token: createToken((res as {success: boolean, payload: string | any}).payload, "30d"),
+    }
+  } else {
+    return {
+      success: false,
+      message: (res as {success: boolean, code: number, error: string}).error
+    }
+  }
 }
 
 export const register = async ( newUser : (User)) => {
@@ -89,7 +115,7 @@ export const register = async ( newUser : (User)) => {
     Object.assign(verificationTokens, {[verificationCode]: newUser.email})
 }
 
-export const verify = (verificationCode: string, email: string) => {
+export const verifyUser = (verificationCode: string, email: string) => {
   let linkedEmail = verificationTokens[verificationCode]
   if (linkedEmail === email) {
     existingUsers[linkedEmail].isVerified = true

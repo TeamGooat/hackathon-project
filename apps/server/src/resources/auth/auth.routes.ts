@@ -1,6 +1,6 @@
 import { string, z } from "zod";
 import { createRouter } from "../../utils";
-import { signIn, register, verify } from "./auth.services";
+import { signIn, register, verifyUser, validateTokens } from "./auth.services";
 
 export const AuthRouter = createRouter()
   .mutation("login", {
@@ -26,12 +26,21 @@ export const AuthRouter = createRouter()
       return register(input);
     }
   })
-  .mutation("verify", {
+  .mutation("verifyUser", {
     input: z.object({
       verificationCode: z.string(),
       email: z.string()
     }),
     resolve: async ({ input }) => {
-      return verify(input.verificationCode, input.email);
+      return verifyUser(input.verificationCode, input.email);
+    }
+  })
+  .mutation("validateTokens", {
+    input: z.object({
+      accessToken: z.string(),
+      refreshToken: z.string()
+    }),
+    resolve: async ( {input} ) => {
+      return validateTokens(input)
     }
   })
