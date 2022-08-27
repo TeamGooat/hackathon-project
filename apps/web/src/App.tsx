@@ -9,6 +9,7 @@ import { trpc } from "./utils/trpc";
 import { useState } from "react";
 import { getFetch } from "@trpc/client";
 
+<<<<<<< HEAD
 function AppContent() {
   
   return (
@@ -26,13 +27,25 @@ function AppContent() {
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
+=======
+function App() {
+  const [queryClient] = useState(() => new QueryClient({}));
+>>>>>>> d9df837ed13c6814e495f48cc7ad9de072ae7e35
   const [trpcClient] = useState(() =>
     trpc.createClient({
       url: "http://localhost:4000/trpc",
       fetch: async (input, init?) => {
         const fetch = getFetch();
+<<<<<<< HEAD
         return fetch(input, {...init, credentials: "include"});
       }
+=======
+        return fetch(input, {
+          ...init,
+          credentials: "include",
+        });
+      },
+>>>>>>> d9df837ed13c6814e495f48cc7ad9de072ae7e35
     })
   );
 
