@@ -4,7 +4,10 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 export const createContext = ({
   req,
   res,
-}: trpcExpress.CreateExpressContextOptions) => ({})
+}: trpcExpress.CreateExpressContextOptions) => ({
+  res, req
+})
+
 export type Context = trpc.inferAsyncReturnType<typeof createContext>;
 
 export function createRouter() {

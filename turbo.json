@@ -11,5 +11,11 @@
     "dev": {
       "cache": false
     }
-  }
+  },
+  "globalDependencies": [
+    ".env",
+    "$EMAIL",
+    "$EMAIL_PASSWORD",
+    "$JWT_SECRET"
+  ]
 }
