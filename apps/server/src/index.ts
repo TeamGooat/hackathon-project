@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 app.use(cors({
   credentials: true,
-  origin: "*"
+  origin: ["http://localhost:3000"]
 }))
 
 app.use(
@@ -46,6 +46,8 @@ io.on('connection', (socket) => {
   socket.on("ice", (ice) => {
     socket.broadcast.emit("ice", ice);
   })
+
+  // socket.on()
 });
 
 httpServer.listen(port, () => {
