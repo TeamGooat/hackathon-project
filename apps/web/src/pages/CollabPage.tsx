@@ -2,7 +2,8 @@
 import ModeButton from "../components/Collab/SideBarModeButton";
 import UserVideo from "../components/Collab/SideBarUserVideo";
 import Header from "../components/Header";
-import { io } from "socket.io-client";
+import { socket } from '../utils/socket'
+
 /* Icons */
 import {
   faCode,
@@ -15,7 +16,6 @@ import MathPad from "../components/Collab/MathPad";
 import { CollabState, ICollabState } from "../components/Collab/collabState";
 import QuestionPad from "../components/Collab/QuestionPad";
 
-const ws = io("http://localhost:4000");
 const config: RTCConfiguration = {
   iceServers: [
     {
@@ -56,7 +56,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
       });
     };
 
-    ws.on("sdp", (sdp: RTCSessionDescriptionInit) => {
+    socket.on("sdp", (sdp: RTCSessionDescriptionInit) => {
       console.log(sdp);
       if (sdp.type === "offer") {
         makeAnswer(sdp);
@@ -65,7 +65,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
       }
     });
 
-    ws.on("ice", (candidate: RTCIceCandidate) => {
+    socket.on("ice", (candidate: RTCIceCandidate) => {
       console.log(candidate);
       pc.addIceCandidate(candidate);
     });
@@ -86,7 +86,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
     remote_vid.srcObject = remote_stream;
 
     pc.onicecandidate = (e) => {
-      e.candidate && ws.emit("ice", e.candidate);
+      e.candidate && socket.emit("ice", e.candidate);
     };
     local_stream.getTracks().forEach((track) => {
       pc.addTrack(track, local_stream);
@@ -101,7 +101,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
     });
     await pc.setLocalDescription(offer);
 
-    ws.emit("sdp", offer);
+    socket.emit("sdp", offer);
   };
 
   const makeAnswer = async (sdp: RTCSessionDescriptionInit) => {
@@ -109,7 +109,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
     const answer = await pc.createAnswer();
     await pc.setLocalDescription(answer);
 
-    ws.emit("sdp", answer);
+    socket.emit("sdp", answer);
   };
 
   return (
