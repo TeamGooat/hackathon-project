@@ -54,13 +54,13 @@ Other competitors only allow responses through chat, or from current students an
 <table border="0">
  <tr>
     <th><b style="text-align:center font-size:30px">React</b></th>
-    <th><b style="font-size:30px">Tailwindcss</b></th>
-    <th><b style="font-size:30px">Typescript</b></th>
-    <th><b style="font-size:30px text-align: center">Node</b></th>
-    <th><b style="font-size:30px">DaisyUI</b></th>
-    <th><b style="font-size:30px">MathQuil</b></th>
     <th><b style="font-size:30px">WebRTC</b></th>
+    <th><b style="font-size:30px">Tailwindcss</b></th>
+    <th><b style="font-size:30px text-align: center">Node</b></th>
     <th><b style="font-size:30px">tRPC</b></th>
+    <th><b style="font-size:30px">DaisyUI</b></th>
+    <th><b style="font-size:30px">Mathquil</b></th>
+    <th><b style="font-size:30px">SocketIO</b></th>
  </tr>
  <tr>
     <td><img src="./readme-assets/react.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
