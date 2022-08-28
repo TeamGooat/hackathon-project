@@ -4,10 +4,6 @@
 **ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and mathematical capabilities.**
 
 <img src="./readme-assets/splash.png">
-  
-  
-
-
 
 ## 🚀 Context
 A picture is worth 1000 words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are more knowledgeable or have been in your position? 
@@ -15,7 +11,7 @@ A picture is worth 1000 words - in our case, a video is worth a million words. H
 Other competitors only allow responses through chat, or from current students and staff. Our application stands out as it allows communication and collaboration from current students taking a course, cross-institutional students, staff and even alumni. With responsIO, you can now take difficult math and coding communication to the next level.
 
 
-## 💫 What is included
+## 💫 What is Included
 - Real time collaboration via video
 - Live multi-user code editor
 - Latex for mathematical notation
