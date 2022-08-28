@@ -5,17 +5,10 @@ import express, { Express } from "express";
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from "./routes";
 import { createContext } from "./utils";
-import { createServer, Server } from "http";
 import { Server as SocketServer } from "socket.io";
 import cors from 'cors'
 
 const app: Express = express();
-const httpServer: Server = createServer(app);
-const io: SocketServer = new SocketServer(httpServer, {
-  cors: {
-    origin: "*"
-  }
-});
 
 const port = 4000;
 
@@ -35,6 +28,18 @@ app.use(
     createContext,
   })
 );
+
+
+
+const server = app.listen(port, () => {
+  console.log(`server listening at http://localhost:${port}`);
+});
+
+const io: SocketServer = new SocketServer(server, {
+  cors: {
+    origin: "*"
+  }
+});
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -62,8 +67,4 @@ io.on('connection', (socket) => {
   socket.on("math:line", (input: number) => {
     socket.broadcast.emit("math:line", input);
   })
-});
-
-httpServer.listen(port, () => {
-  console.log(`server listening at http://localhost:${port}`);
 });

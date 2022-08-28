@@ -1,9 +1,10 @@
 import Editor from "@monaco-editor/react";
 import { useContext } from "react";
 import { CollabState } from "./collabState";
+import { socket } from '../../utils/socket'
 
 const CodePad = () => {
-  const { socket, code, setCode } = useContext(CollabState)
+  const { code, setCode } = useContext(CollabState)
   let editor:any;
 
   function handleEditorChange(value: string | undefined, event: Event) {
