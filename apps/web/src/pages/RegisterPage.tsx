@@ -49,13 +49,13 @@ function RegisterPage() {
   }
 
   return (
-    <div className=' h-screen'>
+    <div className='h-full'>
       <Header unauthenticated />
-      <div className='grid place-items-center pt-20'>
+      <div className='grid place-items-center pb-5'>
         <form
           onSubmit={submitHandler}
           id='login-container'
-          className='card w-96 bg-base-100 shadow-xl p-10 bg-gradient-to-b from-accent  via-[#2F2FF7] text-white'
+          className='card w-96 bg-base-100 shadow-xl p-6 bg-gradient-to-b from-accent  via-[#2F2FF7] text-white'
         >
           <h3 id='login-header' className='label text-2xl pb-4 font-bold'>
             Register
