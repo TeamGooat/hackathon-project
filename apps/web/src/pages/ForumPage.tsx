@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import Question, { QuestionProps } from "../components/Questions/Question";
+import Question from "../components/Questions/Question";
 import { trpc } from "../utils/trpc";
 
 function ForumPage() {
   const data = trpc.useQuery(["question.all", null]).data;
-  console.log(data);
 
   const PageHeader = () => {
     return (
@@ -22,7 +21,7 @@ function ForumPage() {
     return (
       <div className='flex flex-col gap-4 w-7/8 bg-slate-300/20 p-2 h-full rounded-2xl overflow-scroll'>
         {data && data.map((q) => (
-          <Question title={q.title} time={q.time} author={"kimchi"} id={q.} />
+          <Question title={q.title} time={q.time} author={"kimchi"} id={q.question_id} />
         ))}
       </div>
     );
