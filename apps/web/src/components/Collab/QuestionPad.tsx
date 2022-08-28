@@ -15,7 +15,7 @@ const QuestionPad = () => {
   const QuestionBody = () => {
     return (
       <div className='grid grid-rows-[1fr,auto]'>
-        <h1 className='text-2xl'>{mockQuestion}</h1>
+        <h1 className='text-xl'>{mockQuestion}</h1>
       </div>
     );
   };

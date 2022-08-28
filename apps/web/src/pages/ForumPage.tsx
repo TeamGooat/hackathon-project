@@ -16,31 +16,37 @@ function ForumPage() {
 
   let questionData: QuestionProps[] = [
     {
+      id: 1,
       author: "Nathan Hettige",
       title: "How to code in ReactJS?",
       time: "10 minutes ago",
     },
     {
+      id: 2,
       author: "Dane WLKR",
       title: "How to code in SolidJS?",
       time: "10 minutes ago",
     },
     {
+      id: 3,
       author: "Jane Doe",
       title: "Where can I meet Jill?",
       time: "10 minutes ago",
     },
     {
+      id: 4,
       author: "Nathan Hettige",
       title: "How to code in ReactJS?",
       time: "10 minutes ago",
     },
     {
+      id: 4,
       author: "Dane WLKR",
       title: "How to code in SolidJS?",
       time: "10 minutes ago",
     },
     {
+      id: 4,
       author: "Jane Doe",
       title: "Where can I meet Jill?",
       time: "10 minutes ago",
@@ -62,7 +68,7 @@ function ForumPage() {
     return (
       <div className='flex flex-col gap-4 w-7/8 bg-slate-300/20 p-2 rounded-2xl overflow-scroll'>
         {questionData.map((q) => (
-          <Question title={q.title} time={q.time} author={q.author} />
+          <Question title={q.title} time={q.time} author={q.author} id={q.id} />
         ))}
       </div>
     );
