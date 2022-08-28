@@ -17,6 +17,8 @@
     "$EMAIL",
     "$EMAIL_PASSWORD",
     "$JWT_SECRET",
-    "$REDIS_URL"
+    "$REDIS_URL",
+    "$FURL",
+    "$BURL"
   ]
 }

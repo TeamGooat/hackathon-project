@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 app.use(cors({
   credentials: true,
-  origin: ["http://localhost:3000"]
+  origin: [`${process.env.FURL}`]
 }))
 
 app.use(
@@ -37,7 +37,7 @@ const server = app.listen(port, () => {
 
 const io: SocketServer = new SocketServer(server, {
   cors: {
-    origin: "*"
+    origin: process.env.FURL
   }
 });
 

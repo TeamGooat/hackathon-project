@@ -38,7 +38,7 @@ const App = () => {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
-      url: "http://localhost:4000/trpc",
+      url: `${process.env.BURL}/trpc`,
       fetch: async (input, init?) => {
         const fetch = getFetch();
         return fetch(input, {
