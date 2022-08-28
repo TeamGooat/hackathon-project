@@ -60,6 +60,7 @@ export class QuestionStore {
     const id = `question:${nanoid()}`
     const q = await this.redis.set(id, JSON.stringify({
       user_id: userId,
+      question_id: id,
       title: title,
       question,
       created_at: new Date().getTime(),

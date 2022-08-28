@@ -10,6 +10,11 @@ export class QuestionService {
     return await this.store.getQuestions();
   }
 
+  async getSingleQuestion(id: string) {
+    const qs = await this.store.getQuestions();
+    return qs.filter((q) => q.question_id === id)
+  }
+
   async getAnswered() {
     return await this.store.getAnswered();
   }

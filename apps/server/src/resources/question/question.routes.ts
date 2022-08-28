@@ -9,6 +9,14 @@ export const QuestionRouter = createRouter()
       return await questionService.getQuestions();
     }
   })
+  .query("single", {
+    input: z.object({
+      id: z.string()
+    }),
+    resolve: async ({input}) => {
+      return await questionService.getSingleQuestion(input.id);
+    }
+  })
   .query("answered", {
     resolve: async () => {
       return await questionService.getAnswered();
