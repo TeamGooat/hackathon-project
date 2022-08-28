@@ -1,11 +1,11 @@
 import React, { ReactNode, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { socket } from '../../utils/socket'
 
 export type Mode = "Code" | "Math";
 
+
 export const CollabState = React.createContext<ICollabState>({
   mode: "Code",
-  socket: io(""),
   code: "",
   setCode: (code: string) => {},
   setMode: (mode: Mode) => {},
@@ -16,7 +16,6 @@ export const CollabState = React.createContext<ICollabState>({
 })
 
 export interface ICollabState {
-  socket: Socket;
   code: string;
   setCode: (code: string) => void;
   mode: Mode;
@@ -31,7 +30,6 @@ export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => 
   const { children } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [socket, _] = useState<Socket>(io("http://localhost:4000"));
   const [code, setCode] = useState<string>("// Hello, this is the code editor");
   const [mode, _setMode] = useState<Mode>("Code");
   const [lineCount, _setLineCount] = useState(1);
@@ -67,7 +65,6 @@ export const CollabStateProvider: React.FC< {children: ReactNode}> = (props) => 
   })
 
   const initialState : ICollabState = {
-    socket,
     code,
     setCode,
     mode,

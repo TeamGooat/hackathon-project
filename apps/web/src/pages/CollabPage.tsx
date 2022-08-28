@@ -2,20 +2,20 @@
 import ModeButton from "../components/Collab/SideBarModeButton";
 import UserVideo from "../components/Collab/SideBarUserVideo";
 import Header from "../components/Header";
-import { io } from "socket.io-client";
+import { socket } from '../utils/socket'
+
 /* Icons */
 import {
   faCode,
   faQuestion,
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import CodePad from "../components/Collab/CodePad";
 import MathPad from "../components/Collab/MathPad";
 import { CollabState, ICollabState } from "../components/Collab/collabState";
 import QuestionPad from "../components/Collab/QuestionPad";
 
-const ws = io("http://localhost:4000");
 const config: RTCConfiguration = {
   iceServers: [
     {
@@ -56,7 +56,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
       });
     };
 
-    ws.on("sdp", (sdp: RTCSessionDescriptionInit) => {
+    socket.on("sdp", (sdp: RTCSessionDescriptionInit) => {
       console.log(sdp);
       if (sdp.type === "offer") {
         makeAnswer(sdp);
@@ -65,11 +65,11 @@ function SideBar(props: { toggleQuestion: () => void }) {
       }
     });
 
-    ws.on("ice", (candidate: RTCIceCandidate) => {
+    socket.on("ice", (candidate: RTCIceCandidate) => {
       console.log(candidate);
       pc.addIceCandidate(candidate);
     });
-  });
+  }, []);
 
   const setRemoteSdp = async (sdp: RTCSessionDescriptionInit) => {
     await pc.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -86,7 +86,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
     remote_vid.srcObject = remote_stream;
 
     pc.onicecandidate = (e) => {
-      e.candidate && ws.emit("ice", e.candidate);
+      e.candidate && socket.emit("ice", e.candidate);
     };
     local_stream.getTracks().forEach((track) => {
       pc.addTrack(track, local_stream);
@@ -101,7 +101,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
     });
     await pc.setLocalDescription(offer);
 
-    ws.emit("sdp", offer);
+    socket.emit("sdp", offer);
   };
 
   const makeAnswer = async (sdp: RTCSessionDescriptionInit) => {
@@ -109,13 +109,13 @@ function SideBar(props: { toggleQuestion: () => void }) {
     const answer = await pc.createAnswer();
     await pc.setLocalDescription(answer);
 
-    ws.emit("sdp", answer);
+    socket.emit("sdp", answer);
   };
 
   return (
     <div className='flex flex-col gap-4 items-center rounded-2xl '>
-      <UserVideo local id='local' src='https://placeimg.com/192/192/people' />
-      <UserVideo id='remote' src='https://placeimg.com/192/192/people' />
+      <UserVideo local id='local' src='https://cdn.dribbble.com/users/456158/screenshots/6305721/care-bot.gif' />
+      <UserVideo id='remote' src="https://cdn.dribbble.com/users/1210339/screenshots/2767019/avatar18.gif"/>
       <h3 className='text-2xl'>Modes</h3>
       <button onClick={makeOffer}>Call</button>
       <ModeButton name='Code' icon={faCode} onClick={() => setMode("Code")} />
@@ -137,9 +137,9 @@ function CollabPage() {
   const { mode } = useContext(CollabState);
   const [showQuestion, setShowQuestion] = useState(false);
 
-  function toggleQuestion() {
+  const toggleQuestion = useCallback(() => {
     setShowQuestion(!showQuestion);
-  }
+  }, [setShowQuestion])
 
   function renderMode() {
     switch (mode) {
