@@ -1,77 +1,84 @@
-# Turborepo starter
 
-This is an official Yarn v1 starter turborepo.
+<h1 bold>🐐 ResponsIO</h1>
 
-## What's inside?
+**ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and mathematical capabilities.**
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+<img src="./readme-assets/splash.png">
 
-### Apps and Packages
+## 🚀 Context
+A picture is worth 1000 words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are more knowledgeable or have been in your position? 
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+Other competitors only allow responses through chat, or from current students and staff. Our application stands out as it allows communication and collaboration from current students taking a course, cross-institutional students, staff and even alumni. With responsIO, you can now take difficult math and coding communication to the next level.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Utilities
+## 💫 What is Included
+- Real time collaboration via video
+- Live multi-user code editor
+- Latex for mathematical notation
+- Q&A forum
 
-This turborepo has some additional tools already setup for you:
+## 🧑‍💻 Use Cases
+- Math and coding help
+- Coding interviews
+- Collaborating with friends
+- Finding and speaking with mentors
+- Online teaching
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## ✨ Interfaces
+### Login
+![Image of splashpage](./readme-assets/login.png)
 
-## Setup
 
-This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn).
+### Registration
+![Image of splashpage](./readme-assets/register.png)
 
-### Build
 
-To build all apps and packages, run the following command:
+### Forum
+![Image of splashpage](./readme-assets/forum.png)
 
-```
-cd my-turborepo
-yarn run build
-```
 
-### Develop
+### Q&A
+![Image of splashpage](./readme-assets/question.png)
 
-To develop all apps and packages, run the following command:
 
-```
-cd my-turborepo
-yarn run dev
-```
+### Live Coding
+![Image of splashpage](./readme-assets/collab-coding.png)
 
-### Remote Caching
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Live Math
+![Image of splashpage](./readme-assets/collab-math.png)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-```
-cd my-turborepo
-npx turbo login
-```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## 🛠 Tech Stack
+<table border="0">
+ <tr>
+    <th><b style="text-align:center font-size:30px">React</b></th>
+    <th><b style="font-size:30px">Tailwindcss</b></th>
+    <th><b style="font-size:30px">Typescript</b></th>
+    <th><b style="font-size:30px text-align: center">Node</b></th>
+    <th><b style="font-size:30px">DaisyUI</b></th>
+    <th><b style="font-size:30px">MathQuil</b></th>
+    <th><b style="font-size:30px">WebRTC</b></th>
+    <th><b style="font-size:30px">tRPC</b></th>
+ </tr>
+ <tr>
+    <td><img src="./readme-assets/react.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/webrtc.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/tailwindcss.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/node.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/trpc.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/daisyui.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/mathquil.jpeg" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/socketio.png" width="100" height="auto"> </td>
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+ </tr>
+</table>
 
-```
-npx turbo link
-```
+## 🔮 Future Plans
+- Calculator with history
+- User testing
+- Text chat
+- Shared window multi-user editing
 
-## Useful Links
 
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
