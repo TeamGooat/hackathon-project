@@ -1,77 +1,73 @@
-# Turborepo starter
+# ResponsIO
 
-This is an official Yarn v1 starter turborepo.
+ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and math capabilities.
 
-## What's inside?
+![Image of splashpage](./readme-assets/splash.png)
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
 
-### Apps and Packages
+## Context
+A picture is worth 1000 words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are knowledgeable in the domain or those that have been in your position? 
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+Other competitors only allow responses through chat, or from current students and staff. Our application stands out as it allows communication and collaboration from current students taking a course, cross-institutional students, staff and even alumni. With responsIO, you can now take difficult math and coding communication to the next level.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## What is included
+- Real time collaboration via video
+- Live multi-user code editor
+- Latex for mathematical notation
+- Q&A forum
 
-### Utilities
+## Use Cases
+- Math and coding help
+- Coding interviews
+- Collaborating with friends
+- Finding and speaking with mentors
+- Online teaching
 
-This turborepo has some additional tools already setup for you:
+## Interfaces
+### Login
+![Image of splashpage](./readme-assets/login.png width=80)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
 
-## Setup
+### Registration
+![Image of splashpage](./readme-assets/register.png)
 
-This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn).
 
-### Build
+### Forum
+![Image of splashpage](./readme-assets/forum.png)
 
-To build all apps and packages, run the following command:
 
+### QnA
+![Image of splashpage](./readme-assets/question.png)
+
+
+### Live Coding
+![Image of splashpage](./readme-assets/collab-coding.png)
+
+
+### Live Math
+![Image of splashpage](./readme-assets/collab-math.png)
+
+
+
+## Tech Stack
+### Front End
+### Back End
+
+
+## Quick Start
+Back-end:
 ```
-cd my-turborepo
-yarn run build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-yarn run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
+docker-compose up
+cd app/web
+yarn install
+yarn dev
 ```
 
-## Useful Links
+Front-end:
+```
+cd app/web
+yarn install
+yarn start
+```
 
-Learn more about the power of Turborepo:
 
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
