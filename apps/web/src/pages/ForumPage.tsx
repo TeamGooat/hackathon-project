@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Question, { QuestionProps } from "../components/Questions/Question";
-
-// Question
-// User
-// Time
-//
+import { trpc } from "../utils/trpc";
 
 function ForumPage() {
-  //   const [selectedQuestion, setSelectedQuestion] = useState<number>(0);
-  //   const [addQuestion, setAddQuestion] = useState<boolean>(false);
+  // let data = use
+  const data = trpc.useQuery(["question.all", null]);
+  console.log(data.data);
 
-  //   const a = trpc.useMutation(["question.new"])
-  //   const hi = trpc.useQuery(["question.all"])
 
   let questionData: QuestionProps[] = [
     {

@@ -39,10 +39,15 @@ const AnswerPage = () => {
     return (
       <>
         <label className='label px-5 rounded-t-3xl bg-green-400/30'>
-          <span className='label-text'>{`${userName} is online now do you want to call them`}</span>
+          <div>
+            <span className='label-text'>{`${userName} is `}</span>
+            <span className='label-text font-bold text-green-400'>{`online`}</span>
+            <span className='label-text'>{` now do you want to call them`}</span>
+          </div>
+
           <span className='label-text-alt'>
             <button
-              className='btn  btn-md bg-green-500 border-none rounded-full text-white normal-case gap-2'
+              className='btn  btn-md bg-green-500 border-none rounded-full text-white normal-case gap-2 animate-bounce'
               onClick={() => {
                 navigate("/collab");
               }}

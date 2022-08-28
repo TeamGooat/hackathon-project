@@ -9,7 +9,7 @@ import {
   faQuestion,
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import CodePad from "../components/Collab/CodePad";
 import MathPad from "../components/Collab/MathPad";
 import { CollabState, ICollabState } from "../components/Collab/collabState";
@@ -69,7 +69,7 @@ function SideBar(props: { toggleQuestion: () => void }) {
       console.log(candidate);
       pc.addIceCandidate(candidate);
     });
-  });
+  }, []);
 
   const setRemoteSdp = async (sdp: RTCSessionDescriptionInit) => {
     await pc.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -114,8 +114,8 @@ function SideBar(props: { toggleQuestion: () => void }) {
 
   return (
     <div className='flex flex-col gap-4 items-center rounded-2xl '>
-      <UserVideo local id='local' src='https://placeimg.com/192/192/people' />
-      <UserVideo id='remote' src='https://placeimg.com/192/192/people' />
+      <UserVideo local id='local' src='https://cdn.dribbble.com/users/456158/screenshots/6305721/care-bot.gif' />
+      <UserVideo id='remote' src="https://cdn.dribbble.com/users/1210339/screenshots/2767019/avatar18.gif"/>
       <h3 className='text-2xl'>Modes</h3>
       <button onClick={makeOffer}>Call</button>
       <ModeButton name='Code' icon={faCode} onClick={() => setMode("Code")} />
@@ -137,9 +137,9 @@ function CollabPage() {
   const { mode } = useContext(CollabState);
   const [showQuestion, setShowQuestion] = useState(false);
 
-  function toggleQuestion() {
+  const toggleQuestion = useCallback(() => {
     setShowQuestion(!showQuestion);
-  }
+  }, [setShowQuestion])
 
   function renderMode() {
     switch (mode) {
