@@ -25,7 +25,7 @@ Other competitors only allow responses through chat, or from current students an
 
 ## Interfaces
 ### Login
-![Image of splashpage](./readme-assets/login.png width=80)
+![Image of splashpage](./readme-assets/login.png)
 
 
 ### Registration
