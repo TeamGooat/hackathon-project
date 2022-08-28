@@ -1,29 +1,34 @@
-# ResponsIO
 
-ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and mathematical capabilities.
+<h1 bold>🐐 ResponsIO</h1>
 
-![Image of splashpage](./readme-assets/splash.png)
+**ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and mathematical capabilities.**
+
+<img src="./readme-assets/splash.png">
+  
+  
 
 
-## Context
-A picture is worth a thousand words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are knowledgeable in the domain or those that have been in your position? 
+
+## 🚀 Context
+A picture is worth 1000 words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are more knowledgeable or have been in your position? 
 
 Other competitors only allow responses through chat, or from current students and staff. Our application stands out as it allows communication and collaboration from current students taking a course, cross-institutional students, staff and even alumni. With responsIO, you can now take difficult math and coding communication to the next level.
 
-## What is included
+
+## 💫 What is included
 - Real time collaboration via video
 - Live multi-user code editor
 - Latex for mathematical notation
 - Q&A forum
 
-## Use Cases
+## 🧑‍💻 Use Cases
 - Math and coding help
 - Coding interviews
 - Collaborating with friends
 - Finding and speaking with mentors
 - Online teaching
 
-## Interfaces
+## ✨ Interfaces
 ### Login
 ![Image of splashpage](./readme-assets/login.png)
 
@@ -49,37 +54,35 @@ Other competitors only allow responses through chat, or from current students an
 
 
 
-## Tech Stack
-- React
-- Tailwindcss
-- Typescript
-- Node
-- DaisyUI
-- MathQuil
-- SocketIO
-- WebRTC
-- tRPC
+## 🛠 Tech Stack
+<table border="0">
+ <tr>
+    <th><b style="text-align:center font-size:30px">React</b></th>
+    <th><b style="font-size:30px">Tailwindcss</b></th>
+    <th><b style="font-size:30px">Typescript</b></th>
+    <th><b style="font-size:30px text-align: center">Node</b></th>
+    <th><b style="font-size:30px">DaisyUI</b></th>
+    <th><b style="font-size:30px">MathQuil</b></th>
+    <th><b style="font-size:30px">WebRTC</b></th>
+    <th><b style="font-size:30px">tRPC</b></th>
+ </tr>
+ <tr>
+    <td><img src="./readme-assets/react.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/webrtc.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/tailwindcss.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/node.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/trpc.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/daisyui.png" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/mathquil.jpeg" width="100" height="auto"> &nbsp&nbsp&nbsp</td>
+    <td><img src="./readme-assets/socketio.png" width="100" height="auto"> </td>
 
+ </tr>
+</table>
 
-
-## Future Plans
+## 🔮 Future Plans
 - Calculator with history
 - User testing
-
-## Quick Start
-Back-end:
-```
-docker-compose up
-cd app/web
-yarn install
-yarn dev
-```
-
-Front-end:
-```
-cd app/web
-yarn install
-yarn start
-```
+- Text chat
+- Shared window multi-user editing
 
 
