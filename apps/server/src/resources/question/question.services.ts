@@ -14,8 +14,8 @@ export class QuestionService {
     return await this.store.getAnswered();
   }
 
-  async newQuestion(userId: string, question: string) {
-    return await this.store.newQuestion(userId, question);
+  async newQuestion(userId: string, title: string, question: string) {
+    return await this.store.newQuestion(userId, title, question);
   }
 
   async answerQuestion(userId: string, answer: string, questionId: string) {

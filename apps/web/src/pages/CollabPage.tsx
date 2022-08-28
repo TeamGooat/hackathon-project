@@ -10,7 +10,7 @@ import {
   faQuestion,
   faSquareRootVariable,
 } from "@fortawesome/free-solid-svg-icons";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CodePad from "../components/Collab/CodePad";
 import MathPad from "../components/Collab/MathPad";
 import { CollabState, ICollabState } from "../components/Collab/collabState";
@@ -137,9 +137,9 @@ function CollabPage() {
   const { mode } = useContext(CollabState);
   const [showQuestion, setShowQuestion] = useState(false);
 
-  const toggleQuestion = useCallback(() => {
+  const toggleQuestion = () => {
     setShowQuestion(!showQuestion);
-  }, [setShowQuestion])
+  }
 
   function renderMode() {
     switch (mode) {

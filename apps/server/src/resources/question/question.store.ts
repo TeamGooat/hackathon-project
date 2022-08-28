@@ -56,10 +56,11 @@ export class QuestionStore {
 
     return _qs
   }
-  async newQuestion(userId: string, question: string) {
+  async newQuestion(userId: string, title: string, question: string) {
     const id = `question:${nanoid()}`
     const q = await this.redis.set(id, JSON.stringify({
       user_id: userId,
+      title: title,
       question,
       created_at: new Date().getTime(),
     }), {
@@ -82,7 +83,7 @@ export class QuestionStore {
   async answerQuestion(userId: string, answer: string, questionId: string) {
     const q = await this.redis.get(questionId)
     if (q) {
-      const _q = JSON.parse(q) as {user_id: string, question: string, created_at: number}
+      const _q = JSON.parse(q) as {user_id: string, title: string,  question: string, created_at: number}
       const asker = await this.client.user.findFirst({
         where: {
           exposed_id: _q.user_id
@@ -102,6 +103,7 @@ export class QuestionStore {
               id: asker!.id
             }
           },
+          title: _q.title,
           question: _q.question,
         }
       })

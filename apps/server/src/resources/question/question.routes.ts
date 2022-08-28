@@ -16,11 +16,12 @@ export const QuestionRouter = createRouter()
   })
   .mutation("new", {
     input: z.object({
+      title: z.string(),
       question: z.string(),
     }),
     resolve: async ({ input, ctx }) => {
       const id: string = ctx.res.getHeader("user-id") as string;
-      return questionService.newQuestion(id, input.question);
+      return questionService.newQuestion(id, input.title, input.question);
     }
   })
   .mutation("answer", {

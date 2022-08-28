@@ -98,8 +98,8 @@ const AuthActions = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-none ">
-      <ul className="menu menu-horizontal p-0 space-x-4 text-sm">
+    <div className="flex-none">
+      <ul className="menu menu-horizontal p-0  text-sm">
         <li>
           <button
             className="hover:bg-info hover:border-none hover:text-white"

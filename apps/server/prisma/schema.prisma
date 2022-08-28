@@ -44,6 +44,7 @@ model Questions {
   id             Int      @id @default(autoincrement())
   user           User     @relation(fields: [user_id], references: [id])
   user_id        Int
+  title          String
   question       String
   answer         Answers?
   answer_id      Int? @unique

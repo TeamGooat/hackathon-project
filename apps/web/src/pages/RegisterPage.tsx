@@ -5,6 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { trpc } from "../utils/trpc";
+import Spinner from "../components/Spinner";
 
 /**
  * component renders the login UI and features
@@ -12,16 +13,18 @@ import { trpc } from "../utils/trpc";
  */
 function RegisterPage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{
-    hasError: boolean,
-    message?: string,
+    hasError: boolean;
+    message?: string;
   }>({
     hasError: false,
   });
-  const register = trpc.useMutation("auth.register")
+  const register = trpc.useMutation("auth.register");
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     if (e.target.password.value !== e.target.rePassword.value) {
       setError({
@@ -35,7 +38,9 @@ function RegisterPage() {
         password: e.target.password.value,
         first_name: e.target.firstName.value,
         last_name: e.target.lastName.value,
-      })
+      });
+
+      setLoading(false);
 
       if (r.success) {
         navigate("/verify");
@@ -46,6 +51,15 @@ function RegisterPage() {
         });
       }
     }
+  };
+
+  if (loading) {
+    return (
+      <div className='h-screen flex flex-col'>
+        <Header unauthenticated />
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -68,14 +82,18 @@ function RegisterPage() {
             />
           </h3>
 
-          {error.hasError ? <p className="text-sm text-red-800">{error.message}</p> : ""}
+          {error.hasError ? (
+            <p className='text-sm text-red-800'>{error.message}</p>
+          ) : (
+            ""
+          )}
           <label className='label '>
             <span className='label-text text-white'>Enter First Name</span>
           </label>
           <input
             type='text'
             placeholder='First Name'
-            id="firstName"
+            id='firstName'
             required
             className='input input-bordered w-full max-w-xs focus:border-white'
           />
@@ -86,7 +104,7 @@ function RegisterPage() {
           <input
             type='text'
             placeholder='Last Name'
-            id="lastName"
+            id='lastName'
             required
             className='input input-bordered w-full max-w-xs focus:border-white'
           />
@@ -97,7 +115,7 @@ function RegisterPage() {
           <input
             type='text'
             placeholder='Username'
-            id="username"
+            id='username'
             required
             className='input input-bordered w-full max-w-xs focus:border-white'
           />
@@ -107,7 +125,7 @@ function RegisterPage() {
           <input
             type='email'
             placeholder='Email'
-            id="email"
+            id='email'
             required
             className='input input-bordered w-full max-w-xs focus:border-white'
           />
@@ -117,7 +135,7 @@ function RegisterPage() {
           <input
             type='password'
             placeholder='Password'
-            id="password"
+            id='password'
             required
             className='input input-bordered w-full max-w-xs focus:border-white'
           />
@@ -127,12 +145,15 @@ function RegisterPage() {
           <input
             type='password'
             placeholder='Re-Enter Password'
-            id="rePassword"
+            id='rePassword'
             required
             className='input input-bordered w-full max-w-xs focus:border-white'
           />
           <div className='card-actions justify-center pt-10'>
-            <button type="submit" className='btn bg-pinky px-10 hover:bg-accent hover:text-[#000062] text-white'>
+            <button
+              type='submit'
+              className='btn bg-pinky px-10 hover:bg-accent hover:text-[#000062] text-white'
+            >
               Create Account
             </button>
           </div>

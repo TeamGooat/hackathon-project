@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { trpc } from "../utils/trpc";
+import Spinner from "../components/Spinner";
 
 /**
  *
@@ -13,6 +12,7 @@ import { trpc } from "../utils/trpc";
  */
 function OtpPage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{
     hasError: boolean,
     message?: string,
@@ -23,10 +23,13 @@ function OtpPage() {
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
+    setLoading(true)
+
     const r = await verify.mutateAsync({
       otp: e.target.otp.value,
     })
 
+    setLoading(false)
     if (r.success) {
       navigate("/login");
     } else {
@@ -35,7 +38,15 @@ function OtpPage() {
         message: "Invalid OTP",
       });
     }
+  }
 
+  if (loading) {
+    return (
+      <div className='h-screen flex flex-col'>
+        <Header unauthenticated />
+        <Spinner />
+      </div>
+    );
   }
 
   return (
