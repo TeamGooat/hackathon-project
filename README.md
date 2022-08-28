@@ -1,12 +1,12 @@
 # ResponsIO
 
-ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and math capabilities.
+ResponsIO is a Q&A platform where you can get responses to your questions quickly and easily with code editing, video calling and mathematical capabilities.
 
 ![Image of splashpage](./readme-assets/splash.png)
 
 
 ## Context
-A picture is worth 1000 words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are knowledgeable in the domain or those that have been in your position? 
+A picture is worth a thousand words - in our case, a video is worth a million words. Have you ever had a question that was too complex to be answered through text, or wanted to obtain first hand responses from those that are knowledgeable in the domain or those that have been in your position? 
 
 Other competitors only allow responses through chat, or from current students and staff. Our application stands out as it allows communication and collaboration from current students taking a course, cross-institutional students, staff and even alumni. With responsIO, you can now take difficult math and coding communication to the next level.
 
@@ -36,7 +36,7 @@ Other competitors only allow responses through chat, or from current students an
 ![Image of splashpage](./readme-assets/forum.png)
 
 
-### QnA
+### Q&A
 ![Image of splashpage](./readme-assets/question.png)
 
 
@@ -50,9 +50,21 @@ Other competitors only allow responses through chat, or from current students an
 
 
 ## Tech Stack
-### Front End
-### Back End
+- React
+- Tailwindcss
+- Typescript
+- Node
+- DaisyUI
+- MathQuil
+- SocketIO
+- WebRTC
+- tRPC
 
+
+
+## Future Plans
+- Calculator with history
+- User testing
 
 ## Quick Start
 Back-end:
