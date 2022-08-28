@@ -3,6 +3,8 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
+import { trpc } from "../utils/trpc";
+import { u } from "server/src/resources/question/question.services";
 
 const userName = "kimchi8";
 const min = "30";
@@ -13,6 +15,13 @@ const mockQuestion =
 
 const AnswerPage = () => {
   const navigate = useNavigate();
+  let { questionId } = useParams();
+  const res = trpc.useQuery(["question.single", {id: questionId!}]).data;
+  let q: u;
+
+  if (res) {
+    q = res[0];
+  }
 
   const QuestionDetails = () => {
     return (
@@ -27,12 +36,21 @@ const AnswerPage = () => {
     );
   };
   const QuestionTitle = () => {
-    return <h1 className='text-3xl'>{mockTitle}</h1>;
+    if(q) {
+      return (<h1 className='text-3xl'>{q.title}</h1>);
+    }
+    return<></>
+
   };
   const QuestionBody = () => {
-    return (
-      <h1 className='text-xl leading-9 max-w-screen-lg'>{mockQuestion}</h1>
-    );
+    if(q) {
+      return (
+        <h1 className='text-xl leading-9 max-w-screen-lg'>{q.question}</h1>
+      );
+    }
+
+    return<></>
+
   };
 
   const CallPrompt = () => {
@@ -47,7 +65,7 @@ const AnswerPage = () => {
 
           <span className='label-text-alt'>
             <button
-              className='btn  btn-md bg-green-500 border-none rounded-full text-white normal-case gap-2 animate-bounce'
+              className='btn btn-md bg-green-500 border-none rounded-full text-white normal-case gap-2 animate-bounce'
               onClick={() => {
                 navigate("/collab");
               }}
@@ -72,8 +90,6 @@ const AnswerPage = () => {
       </div>
     );
   };
-
-  let { questionId } = useParams();
 
   return (
     <div className='flex flex-col h-screen'>

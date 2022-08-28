@@ -1,5 +1,12 @@
 import { QuestionStore } from './question.store';
 
+export interface u {
+    user_id: string,
+    question_id: string,
+    title: string,
+    question: string,
+    created_at:Date
+}
 export class QuestionService {
   private store: QuestionStore;
   constructor() {
@@ -10,9 +17,9 @@ export class QuestionService {
     return await this.store.getQuestions();
   }
 
-  async getSingleQuestion(id: string) {
-    const qs = await this.store.getQuestions();
-    return qs.filter((q) => q.question_id === id)
+  async getSingleQuestion(id: string) : Promise<u[]> {
+    const qs = (await this.store.getQuestions()).filter((q) => q.question_id === id) as u[]
+    return qs
   }
 
   async getAnswered() {
